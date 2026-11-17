@@ -10,6 +10,9 @@ import 'despachar_pedidos_screen.dart';
 import 'create_restaurant_screen.dart';
 import 'inventory_screen.dart';
 import 'login_screen.dart';
+import 'productos_stock_screen.dart';
+import 'punto_venta_screen.dart';
+import 'reporte_ventas_screen.dart';
 import 'ver_menu_screen.dart';
 
 class RestaurantViewScreen extends StatefulWidget {
@@ -174,6 +177,22 @@ class _RestaurantViewScreenState extends State<RestaurantViewScreen> {
                   ),
                 ),
               ),
+            // Venta al detalle (licorera/tienda): cobrar escaneando
+            if (widget.user.can(kSeccionCobrar))
+              _SectionCard(
+                icon: Icons.point_of_sale_outlined,
+                label: 'Venta rápida',
+                description: 'Escanear productos y cobrar en mostrador',
+                color: AppColors.verdeExito,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => PuntoVentaScreen(
+                      restaurant: _restaurant,
+                      user:       widget.user,
+                    ),
+                  ),
+                ),
+              ),
             // 2. Despachar pedidos
             if (widget.user.can(kSeccionDespachar))
               _SectionCard(
@@ -234,6 +253,38 @@ class _RestaurantViewScreenState extends State<RestaurantViewScreen> {
                     builder: (_) => InventoryScreen(
                       restaurant: _restaurant,
                       user: widget.user,
+                    ),
+                  ),
+                ),
+              ),
+            // Productos con stock propio: entradas, salidas, conteo y kárdex
+            if (widget.user.can(kSeccionInventario))
+              _SectionCard(
+                icon: Icons.qr_code_2_outlined,
+                label: 'Productos y stock',
+                description: 'Códigos de barras, entradas, conteo y valor',
+                color: const Color(0xFF60A5FA),
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ProductosStockScreen(
+                      restaurant: _restaurant,
+                      user:       widget.user,
+                    ),
+                  ),
+                ),
+              ),
+            // Reporte de ventas y utilidad
+            if (widget.user.can(kSeccionCartera))
+              _SectionCard(
+                icon: Icons.insights_outlined,
+                label: 'Reporte de ventas',
+                description: 'Utilidad, margen y más vendidos',
+                color: AppColors.naranjaAccion,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ReporteVentasScreen(
+                      restaurant: _restaurant,
+                      user:       widget.user,
                     ),
                   ),
                 ),

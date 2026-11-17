@@ -15,3 +15,4 @@ export 'pedidos/mock_pedidos_api.dart';
 export 'despachar/mock_despachar_api.dart';
 export 'ventas/mock_ventas_api.dart';
 export 'gastos/mock_servicios_api.dart';
+export 'stock/stock_api.dart';

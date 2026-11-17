@@ -23,6 +23,7 @@ daily inventory, cash register and staff — with a permission system that keeps
 | **Finance** | Expenses, losses and daily stats (orders, revenue, average ticket). |
 | **Staff & roles** | Custom roles built from 14 granular permissions; each employee only sees the sections they're allowed. |
 | **Multi-restaurant** | One account can own several restaurants; data never crosses between them. |
+| **Retail counter (liquor stores, shops)** | Scan a barcode or search by name, charge at the counter and stock goes down. Purchases, shrinkage and physical counts by scanning, per-product stock ledger, inventory value, and a sales report with profit and margin. |
 
 ## Permission model
 
@@ -80,11 +81,17 @@ flutter pub get
 flutter run
 ```
 
-The app points at the hosted API by default. To use a different backend, edit the host in
-[`lib/core/api_config.dart`](lib/core/api_config.dart):
+The app points at the hosted API by default. To use a different backend, pass it at build/run
+time (see [`lib/core/api_config.dart`](lib/core/api_config.dart)):
 
-```dart
-static const String host = 'api.manhattan-project.online';
+```bash
+flutter run -d chrome --dart-define=API_HOST=localhost:8000 --dart-define=API_INSECURE=true
+```
+
+Build the web version (a static site — serve `build/web` from any web server):
+
+```bash
+flutter build web --release   # → build/web
 ```
 
 Build a release APK:
@@ -98,6 +105,14 @@ Regenerate launcher icons after changing `assets/icon/comanda.png`:
 ```bash
 dart run flutter_launcher_icons
 ```
+
+### Barcode scanners
+
+USB and Bluetooth scanners behave like a keyboard (they type the code and press Enter), so the retail
+screens only keep a focused text field (`widgets/scan_field.dart`) — no extra package, and it works the
+same on web, desktop and a phone with a scanner. A code that isn't registered falls back to a name
+search; during a purchase it opens the new-product form with the code already filled in. On the
+counter screen, **F9** charges the sale.
 
 ## Project status
 
