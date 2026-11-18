@@ -135,7 +135,7 @@ class _AddEmpleadoScreenState extends State<AddEmpleadoScreen> {
     widget.onAdded(e);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: AppColors.verdeExito,
+        backgroundColor: AppColors.verdeBoton,
         content: Text(msg,
             style: AppTypography.bodyMedium
                 .copyWith(color: AppColors.textoOscuroAlto)),
@@ -148,7 +148,7 @@ class _AddEmpleadoScreenState extends State<AddEmpleadoScreen> {
     if (!mounted) return;
     setState(() => _saving = false);
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(backgroundColor: AppColors.rojoAlerta, content: Text(msg)),
+      SnackBar(backgroundColor: AppColors.rojoBoton, content: Text(msg)),
     );
   }
 
@@ -267,7 +267,7 @@ class _AddEmpleadoScreenState extends State<AddEmpleadoScreen> {
                 decoration: InputDecoration(
                   hintText: 'Ej: juanp',
                   hintStyle: AppTypography.caption.copyWith(
-                      color: AppColors.textoClaroMedio.withValues(alpha: 0.5)),
+                      color: AppColors.textoTenue),
                   filled: true,
                   fillColor: const Color(0xFF1E293B),
                   contentPadding: const EdgeInsets.symmetric(
@@ -275,7 +275,7 @@ class _AddEmpleadoScreenState extends State<AddEmpleadoScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(
-                        color: AppColors.azulControl.withValues(alpha: 0.4)),
+                        color: AppColors.bordeControl),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -413,7 +413,7 @@ class _PrimaryButton extends StatelessWidget {
         child: ElevatedButton(
           onPressed: enabled ? onTap : null,
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.naranjaAccion,
+            backgroundColor: AppColors.naranjaBoton,
             disabledBackgroundColor:
                 AppColors.naranjaAccion.withValues(alpha: 0.35),
             shape: RoundedRectangleBorder(

@@ -370,7 +370,7 @@ class _AddProductoCompuestoScreenState
                   ElevatedButton(
                     onPressed: _saving ? null : _guardar,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.naranjaAccion,
+                      backgroundColor: AppColors.naranjaBoton,
                       disabledBackgroundColor:
                           AppColors.naranjaAccion.withValues(alpha: 0.4),
                       shape: RoundedRectangleBorder(
@@ -596,16 +596,16 @@ class _IngredienteCard extends StatelessWidget {
                 OutlinedButton.icon(
                   onPressed: onAgregarOpcion,
                   icon: const Icon(Icons.add,
-                      color: AppColors.azulControl, size: 16),
+                      color: AppColors.azulTexto, size: 16),
                   label: Text(
                     'Añadir otra opción',
                     style: AppTypography.caption
-                        .copyWith(color: AppColors.azulControl),
+                        .copyWith(color: AppColors.azulTexto),
                   ),
                   style: OutlinedButton.styleFrom(
                     side: BorderSide(
                         color:
-                            AppColors.azulControl.withValues(alpha: 0.4)),
+                            AppColors.borde),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)),
                     padding:
@@ -661,7 +661,7 @@ class _OpcionCard extends StatelessWidget {
         color: const Color(0xFF0F172A),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-            color: AppColors.azulControl.withValues(alpha: 0.2)),
+            color: AppColors.borde),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -680,7 +680,7 @@ class _OpcionCard extends StatelessWidget {
                 child: Text(
                   'Opción $letra',
                   style: AppTypography.caption.copyWith(
-                      color: AppColors.azulControl,
+                      color: AppColors.azulTexto,
                       fontWeight: FontWeight.w700),
                 ),
               ),
@@ -727,7 +727,7 @@ class _OpcionCard extends StatelessWidget {
                   if (itemIdx > 0) ...[
                     Divider(
                       height: 1,
-                      color: AppColors.azulControl.withValues(alpha: 0.15),
+                      color: AppColors.borde,
                     ),
                     const SizedBox(height: 14),
                   ],
@@ -780,12 +780,12 @@ class _OpcionCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 const Icon(Icons.add_circle_outline,
-                    size: 14, color: AppColors.azulControl),
+                    size: 14, color: AppColors.azulTexto),
                 const SizedBox(width: 5),
                 Text(
                   'Añadir ingrediente',
                   style: AppTypography.caption
-                      .copyWith(color: AppColors.azulControl),
+                      .copyWith(color: AppColors.azulTexto),
                 ),
               ],
             ),
@@ -911,7 +911,7 @@ class _ItemSelectorFieldState extends State<_ItemSelectorField> {
           decoration: InputDecoration(
             hintText: 'Buscar en inventario...',
             hintStyle: AppTypography.caption.copyWith(
-                color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+                color: AppColors.textoTenue),
             prefixIcon: const Icon(Icons.search,
                 size: 18, color: AppColors.textoClaroMedio),
             suffixIcon: (widget.entry.seleccionado || q.isNotEmpty)
@@ -941,7 +941,7 @@ class _ItemSelectorFieldState extends State<_ItemSelectorField> {
               borderSide: BorderSide(
                 color: sinSel
                     ? AppColors.rojoAlerta
-                    : AppColors.azulControl.withValues(alpha: 0.3),
+                    : AppColors.bordeControl,
               ),
             ),
             focusedBorder: OutlineInputBorder(
@@ -969,7 +969,7 @@ class _ItemSelectorFieldState extends State<_ItemSelectorField> {
               color: const Color(0xFF1E293B),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                  color: AppColors.azulControl.withValues(alpha: 0.3)),
+                  color: AppColors.borde),
             ),
             constraints: const BoxConstraints(maxHeight: 180),
             child: SingleChildScrollView(
@@ -979,7 +979,7 @@ class _ItemSelectorFieldState extends State<_ItemSelectorField> {
                           label: item.name,
                           sub:   item.unidad,
                           icon:  Icons.inventory_2_outlined,
-                          color: AppColors.azulControl,
+                          color: AppColors.azulTexto,
                           onTap: () => _selectItem(item),
                         ))
                     .toList(),
@@ -1099,8 +1099,7 @@ class _ItemCantUnidadRow extends StatelessWidget {
                         color: const Color(0xFF1E293B),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                            color: AppColors.azulControl
-                                .withValues(alpha: 0.4)),
+                            color: AppColors.borde),
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
@@ -1132,13 +1131,12 @@ class _ItemCantUnidadRow extends StatelessWidget {
                         color: const Color(0xFF1E293B),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                            color: AppColors.azulControl
-                                .withValues(alpha: 0.2)),
+                            color: AppColors.borde),
                       ),
                       child: Text(
                         entry.unidad,
                         style: AppTypography.bodyMedium
-                            .copyWith(color: AppColors.azulControl),
+                            .copyWith(color: AppColors.azulTexto),
                       ),
                     ),
                 ],
@@ -1288,7 +1286,7 @@ class _CatSelectorFieldState extends State<_CatSelectorField> {
           decoration: InputDecoration(
             hintText: 'Buscar o crear categoría...',
             hintStyle: AppTypography.caption.copyWith(
-                color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+                color: AppColors.textoTenue),
             prefixIcon: const Icon(Icons.category_outlined,
                 size: 18, color: AppColors.textoClaroMedio),
             suffixIcon: (_seleccionada || q.isNotEmpty)
@@ -1318,7 +1316,7 @@ class _CatSelectorFieldState extends State<_CatSelectorField> {
               borderSide: BorderSide(
                 color: sinSel
                     ? AppColors.rojoAlerta
-                    : AppColors.azulControl.withValues(alpha: 0.4),
+                    : AppColors.bordeControl,
               ),
             ),
             focusedBorder: OutlineInputBorder(
@@ -1346,7 +1344,7 @@ class _CatSelectorFieldState extends State<_CatSelectorField> {
               color: const Color(0xFF1E293B),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                  color: AppColors.azulControl.withValues(alpha: 0.3)),
+                  color: AppColors.borde),
             ),
             constraints: const BoxConstraints(maxHeight: 160),
             child: SingleChildScrollView(
@@ -1444,7 +1442,7 @@ Widget _buildTextField({
       decoration: InputDecoration(
         hintText:  hint,
         hintStyle: AppTypography.caption.copyWith(
-            color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+            color: AppColors.textoTenue),
         filled:    true,
         fillColor: fillColor,
         contentPadding: const EdgeInsets.symmetric(
@@ -1454,7 +1452,7 @@ Widget _buildTextField({
           borderSide: BorderSide(
             color: error
                 ? AppColors.rojoAlerta
-                : AppColors.azulControl.withValues(alpha: 0.4),
+                : AppColors.bordeControl,
           ),
         ),
         focusedBorder: OutlineInputBorder(

@@ -53,7 +53,7 @@ class DetallePerdidaScreen extends StatelessWidget {
                 const SizedBox(width: 8),
                 _Chip(
                   label: _dateFmt.format(perdida.fecha),
-                  color: AppColors.azulControl,
+                  color: AppColors.azulTexto,
                 ),
               ],
             ),
@@ -69,14 +69,14 @@ class DetallePerdidaScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Divider(
-                        color: AppColors.azulControl.withValues(alpha: 0.3)),
+                        color: AppColors.borde),
                   ),
                   const SizedBox(width: 10),
                   Text('Productos dañados', style: AppTypography.caption),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Divider(
-                        color: AppColors.azulControl.withValues(alpha: 0.3)),
+                        color: AppColors.borde),
                   ),
                 ],
               ),
@@ -150,7 +150,7 @@ class _ProductoRow extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-              color: AppColors.azulControl.withValues(alpha: 0.2)),
+              color: AppColors.borde),
         ),
       ),
       child: Row(

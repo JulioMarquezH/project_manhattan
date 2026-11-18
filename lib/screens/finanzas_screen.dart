@@ -243,8 +243,7 @@ class _FinanzasScreenState extends State<FinanzasScreen> {
                                   border: Border.all(
                                     color: _rangoFechas != null
                                         ? AppColors.naranjaAccion
-                                        : AppColors.azulControl
-                                            .withValues(alpha: 0.4),
+                                        : AppColors.bordeControl,
                                   ),
                                 ),
                                 child: Row(
@@ -418,7 +417,7 @@ class _ListaCombinada extends StatelessWidget {
         child: Text(
           'Sin registros',
           style: AppTypography.bodyMedium.copyWith(
-              color: AppColors.textoClaroMedio.withValues(alpha: 0.5)),
+              color: AppColors.textoTenue),
         ),
       );
     }
@@ -427,7 +426,7 @@ class _ListaCombinada extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
       itemCount: items.length,
       separatorBuilder: (_, i) => Divider(
-          color: AppColors.azulControl.withValues(alpha: 0.25), height: 1),
+          color: AppColors.borde, height: 1),
       itemBuilder: (_, i) {
         final item = items[i];
 
@@ -636,7 +635,7 @@ class _TableHeader extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-              color: AppColors.azulControl.withValues(alpha: 0.4)),
+              color: AppColors.borde),
         ),
       ),
       child: Row(

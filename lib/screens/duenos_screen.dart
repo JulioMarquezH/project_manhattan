@@ -255,7 +255,7 @@ class _DuenosScreenState extends State<DuenosScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _crearDueno,
-        backgroundColor: AppColors.naranjaAccion,
+        backgroundColor: AppColors.naranjaBoton,
         icon: const Icon(Icons.person_add_alt, color: Colors.white, size: 20),
         label: Text('Añadir dueño',
             style:
@@ -401,10 +401,10 @@ class _DuenoCard extends StatelessWidget {
                 TextButton.icon(
                   onPressed: onPassword,
                   icon: const Icon(Icons.key_outlined,
-                      size: 16, color: AppColors.azulControl),
+                      size: 16, color: AppColors.azulTexto),
                   label: Text('Contraseña',
                       style: AppTypography.caption
-                          .copyWith(color: AppColors.azulControl)),
+                          .copyWith(color: AppColors.azulTexto)),
                 ),
                 Switch(
                   value: activo,

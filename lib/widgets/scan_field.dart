@@ -155,7 +155,7 @@ class ScanFieldState extends State<ScanField> {
       cursorColor: AppColors.naranjaAccion,
       decoration: InputDecoration(
         hintText: widget.hint,
-        hintStyle: AppTypography.bodyMedium.copyWith(color: AppColors.textoClaroMedio.withValues(alpha: 0.5)),
+        hintStyle: AppTypography.bodyMedium.copyWith(color: AppColors.textoTenue),
         prefixIcon: const Icon(Icons.qr_code_scanner, color: AppColors.naranjaAccion),
         suffixIcon: _buscando
             ? const Padding(

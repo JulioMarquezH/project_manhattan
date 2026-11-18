@@ -125,7 +125,7 @@ class _GestionMenuScreenState extends State<GestionMenuScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToAddProducto,
-        backgroundColor: AppColors.naranjaAccion,
+        backgroundColor: AppColors.naranjaBoton,
         elevation: 2,
         icon: const Icon(Icons.add, color: Colors.white, size: 20),
         label: Text(
@@ -177,8 +177,7 @@ class _GestionMenuScreenState extends State<GestionMenuScreen> {
                       color: const Color(0xFF1E293B),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                          color: AppColors.azulControl
-                              .withValues(alpha: 0.25)),
+                          color: AppColors.borde),
                     ),
                     child: Column(
                       children: [
@@ -212,8 +211,7 @@ class _GestionMenuScreenState extends State<GestionMenuScreen> {
                                 if (i < _filtrados.length - 1)
                                   Divider(
                                     height: 1,
-                                    color: AppColors.azulControl
-                                        .withValues(alpha: 0.15),
+                                    color: AppColors.borde,
                                     indent:    10,
                                     endIndent: 10,
                                   ),
@@ -319,7 +317,7 @@ class _ProductoRow extends StatelessWidget {
                 color: AppColors.azulControl.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(6),
                 border: Border.all(
-                    color: AppColors.azulControl.withValues(alpha: 0.2)),
+                    color: AppColors.borde),
               ),
               child: const Icon(Icons.image_outlined,
                   color: AppColors.textoClaroMedio, size: 14),
@@ -423,7 +421,7 @@ class _CatChip extends StatelessWidget {
           border: Border.all(
             color: selected
                 ? AppColors.naranjaAccion
-                : AppColors.azulControl.withValues(alpha: 0.4),
+                : AppColors.bordeControl,
             width: selected ? 1.5 : 1,
           ),
         ),

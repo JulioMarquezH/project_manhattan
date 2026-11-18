@@ -16,11 +16,7 @@ import 'reporte_ventas_screen.dart';
 import 'ver_menu_screen.dart';
 
 class RestaurantViewScreen extends StatefulWidget {
-  const RestaurantViewScreen({
-    super.key,
-    required this.restaurant,
-    required this.user,
-  });
+  const RestaurantViewScreen({super.key, required this.restaurant, required this.user});
 
   final Restaurant restaurant;
   final AppUser user;
@@ -63,9 +59,7 @@ class _RestaurantViewScreenState extends State<RestaurantViewScreen> {
 
   Future<void> _goToEdit() async {
     final result = await Navigator.of(context).push<Restaurant>(
-      MaterialPageRoute(
-        builder: (_) => CreateRestaurantScreen(restaurant: _restaurant),
-      ),
+      MaterialPageRoute(builder: (_) => CreateRestaurantScreen(restaurant: _restaurant)),
     );
     if (result != null) setState(() => _restaurant = result);
   }
@@ -83,15 +77,11 @@ class _RestaurantViewScreenState extends State<RestaurantViewScreen> {
         // dejaba la pantalla en negro.
         leading: Navigator.of(context).canPop()
             ? IconButton(
-                icon:
-                    const Icon(Icons.arrow_back, color: AppColors.textoClaroAlto),
+                icon: const Icon(Icons.arrow_back, color: AppColors.textoClaroAlto),
                 onPressed: () => Navigator.of(context).pop(),
               )
             : null,
-        title: Text(
-          'Vista del restaurante',
-          style: AppTypography.titleLarge,
-        ),
+        title: Text('Vista del restaurante', style: AppTypography.titleLarge),
         actions: [
           // Status del restaurante
           GestureDetector(
@@ -118,18 +108,14 @@ class _RestaurantViewScreenState extends State<RestaurantViewScreen> {
                     height: 7,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: _isOpen
-                          ? AppColors.verdeExito
-                          : AppColors.rojoAlerta,
+                      color: _isOpen ? AppColors.verdeExito : AppColors.rojoAlerta,
                     ),
                   ),
                   const SizedBox(width: 6),
                   Text(
                     _isOpen ? 'Abierto' : 'Cerrado',
                     style: AppTypography.caption.copyWith(
-                      color: _isOpen
-                          ? AppColors.verdeExito
-                          : AppColors.rojoAlerta,
+                      color: _isOpen ? AppColors.verdeExito : AppColors.rojoAlerta,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -142,11 +128,7 @@ class _RestaurantViewScreenState extends State<RestaurantViewScreen> {
           if (widget.user.can(kSeccionAdministracion))
             IconButton(
               onPressed: _goToEdit,
-              icon: const Icon(
-                Icons.edit_outlined,
-                color: AppColors.textoClaroMedio,
-                size: 20,
-              ),
+              icon: const Icon(Icons.edit_outlined, color: AppColors.textoClaroMedio, size: 20),
               tooltip: 'Editar restaurante',
             ),
         ],
@@ -160,168 +142,153 @@ class _RestaurantViewScreenState extends State<RestaurantViewScreen> {
             RestaurantHeader(restaurant: _restaurant, user: widget.user),
             const SizedBox(height: 20),
 
-            // Funciones del restaurante — visibles según permisos del usuario
-            // 1. Atender mesa
-            if (widget.user.can(kSeccionAtenderMesa))
-              _SectionCard(
-                icon: Icons.table_restaurant_outlined,
-                label: 'Atender mesa',
-                description: 'Crear y gestionar órdenes',
-                color: AppColors.naranjaAccion,
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => AtenderMesaScreen(
-                      restaurant: _restaurant,
-                      user:       widget.user,
+            // Funciones del restaurante — visibles según permisos del usuario.
+            // En pantallas anchas van en 2 o 3 columnas.
+            _Grilla(
+              children: [
+                // 1. Atender mesa
+                if (widget.user.can(kSeccionAtenderMesa))
+                  _SectionCard(
+                    icon: Icons.table_restaurant_outlined,
+                    label: 'Atender mesa',
+                    description: 'Crear y gestionar órdenes',
+                    color: AppColors.naranjaAccion,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            AtenderMesaScreen(restaurant: _restaurant, user: widget.user),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            // Venta al detalle (licorera/tienda): cobrar escaneando
-            if (widget.user.can(kSeccionCobrar))
-              _SectionCard(
-                icon: Icons.point_of_sale_outlined,
-                label: 'Venta rápida',
-                description: 'Escanear productos y cobrar en mostrador',
-                color: AppColors.verdeExito,
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => PuntoVentaScreen(
-                      restaurant: _restaurant,
-                      user:       widget.user,
+                // Venta al detalle (licorera/tienda): cobrar escaneando
+                if (widget.user.can(kSeccionCobrar))
+                  _SectionCard(
+                    icon: Icons.point_of_sale_outlined,
+                    label: 'Venta rápida',
+                    description: 'Escanear productos y cobrar en mostrador',
+                    color: AppColors.verdeExito,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            PuntoVentaScreen(restaurant: _restaurant, user: widget.user),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            // 2. Despachar pedidos
-            if (widget.user.can(kSeccionDespachar))
-              _SectionCard(
-                icon: Icons.delivery_dining_outlined,
-                label: 'Despachar pedidos',
-                description: 'Ver pedidos listos para entregar',
-                color: const Color(0xFF8B5CF6),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => DespacharPedidosScreen(
-                      restaurant: _restaurant,
-                      user:       widget.user,
+                // 2. Despachar pedidos
+                if (widget.user.can(kSeccionDespachar))
+                  _SectionCard(
+                    icon: Icons.delivery_dining_outlined,
+                    label: 'Despachar pedidos',
+                    description: 'Ver pedidos listos para entregar',
+                    color: const Color(0xFF8B5CF6),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            DespacharPedidosScreen(restaurant: _restaurant, user: widget.user),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            // 3. Cartera
-            if (widget.user.can(kSeccionCartera))
-              _SectionCard(
-                icon: Icons.account_balance_wallet_outlined,
-                label: 'Cartera',
-                description: 'Caja, ingresos y gastos',
-                color: AppColors.verdeExito,
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => CarteraScreen(
-                      restaurant: _restaurant,
-                      user: widget.user,
+                // 3. Cartera
+                if (widget.user.can(kSeccionCartera))
+                  _SectionCard(
+                    icon: Icons.account_balance_wallet_outlined,
+                    label: 'Cartera',
+                    description: 'Caja, ingresos y gastos',
+                    color: AppColors.verdeExito,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => CarteraScreen(restaurant: _restaurant, user: widget.user),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            // 4. Ver menú
-            if (widget.user.can(kSeccionVerMenu))
-              _SectionCard(
-                icon: Icons.menu_book_outlined,
-                label: 'Ver menú',
-                description: 'Platos, precios y categorías',
-                color: AppColors.naranjaAccion,
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => VerMenuScreen(
-                      restaurant: _restaurant,
-                      user:       widget.user,
+                // 4. Ver menú
+                if (widget.user.can(kSeccionVerMenu))
+                  _SectionCard(
+                    icon: Icons.menu_book_outlined,
+                    label: 'Ver menú',
+                    description: 'Platos, precios y categorías',
+                    color: AppColors.naranjaAccion,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => VerMenuScreen(restaurant: _restaurant, user: widget.user),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            // 5. Administrar inventario
-            if (widget.user.can(kSeccionInventario))
-              _SectionCard(
-                icon: Icons.inventory_2_outlined,
-                label: 'Administrar inventario',
-                description: 'Ingredientes, stock y alertas',
-                color: AppColors.azulControl,
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => InventoryScreen(
-                      restaurant: _restaurant,
-                      user: widget.user,
+                // 5. Administrar inventario
+                if (widget.user.can(kSeccionInventario))
+                  _SectionCard(
+                    icon: Icons.inventory_2_outlined,
+                    label: 'Administrar inventario',
+                    description: 'Ingredientes, stock y alertas',
+                    color: AppColors.azulTexto,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => InventoryScreen(restaurant: _restaurant, user: widget.user),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            // Productos con stock propio: entradas, salidas, conteo y kárdex
-            if (widget.user.can(kSeccionInventario))
-              _SectionCard(
-                icon: Icons.qr_code_2_outlined,
-                label: 'Productos y stock',
-                description: 'Códigos de barras, entradas, conteo y valor',
-                color: const Color(0xFF60A5FA),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => ProductosStockScreen(
-                      restaurant: _restaurant,
-                      user:       widget.user,
+                // Productos con stock propio: entradas, salidas, conteo y kárdex
+                if (widget.user.can(kSeccionInventario))
+                  _SectionCard(
+                    icon: Icons.qr_code_2_outlined,
+                    label: 'Productos y stock',
+                    description: 'Códigos de barras, entradas, conteo y valor',
+                    color: const Color(0xFF60A5FA),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            ProductosStockScreen(restaurant: _restaurant, user: widget.user),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            // Reporte de ventas y utilidad
-            if (widget.user.can(kSeccionCartera))
-              _SectionCard(
-                icon: Icons.insights_outlined,
-                label: 'Reporte de ventas',
-                description: 'Utilidad, margen y más vendidos',
-                color: AppColors.naranjaAccion,
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => ReporteVentasScreen(
-                      restaurant: _restaurant,
-                      user:       widget.user,
+                // Reporte de ventas y utilidad
+                if (widget.user.can(kSeccionCartera))
+                  _SectionCard(
+                    icon: Icons.insights_outlined,
+                    label: 'Reporte de ventas',
+                    description: 'Utilidad, margen y más vendidos',
+                    color: AppColors.naranjaAccion,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            ReporteVentasScreen(restaurant: _restaurant, user: widget.user),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            // 6. Administración de restaurante
-            if (widget.user.can(kSeccionAdministracion))
-              _SectionCard(
-                icon: Icons.store_outlined,
-                label: 'Administración de restaurante',
-                description: 'Configuración, reportes y métricas',
-                color: AppColors.azulControl,
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => AdminRestauranteScreen(
-                      restaurant: _restaurant,
-                      user:       widget.user,
+                // 6. Administración de restaurante
+                if (widget.user.can(kSeccionAdministracion))
+                  _SectionCard(
+                    icon: Icons.store_outlined,
+                    label: 'Administración de restaurante',
+                    description: 'Configuración, reportes y métricas',
+                    color: AppColors.azulTexto,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            AdminRestauranteScreen(restaurant: _restaurant, user: widget.user),
+                      ),
                     ),
                   ),
-                ),
-              ),
+              ],
+            ),
             const SizedBox(height: 16),
 
             // Cerrar sesión al fondo
-            TextButton.icon(
-              onPressed: () async {
-                await MockAuthApi.logout();
-                if (!context.mounted) return;
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => const LoginScreen()),
-                  (_) => false,
-                );
-              },
-              icon: const Icon(Icons.logout, color: AppColors.rojoAlerta, size: 18),
-              label: Text(
-                'Cerrar sesión',
-                style: AppTypography.bodyMedium.copyWith(
-                  color: AppColors.rojoAlerta,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed: () async {
+                  await MockAuthApi.logout();
+                  if (!context.mounted) return;
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                    (_) => false,
+                  );
+                },
+                icon: const Icon(Icons.logout, color: AppColors.rojoAlerta, size: 18),
+                label: Text(
+                  'Cerrar sesión',
+                  style: AppTypography.bodyMedium.copyWith(color: AppColors.rojoAlerta),
                 ),
               ),
             ),
@@ -354,54 +321,66 @@ class _SectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Material(
-        color: const Color(0xFF1E293B),
+    return Material(
+      color: AppColors.superficie,
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(14),
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(14),
-          splashColor: color.withValues(alpha: 0.1),
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: color.withValues(alpha: 0.25),
+        splashColor: color.withValues(alpha: 0.1),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: AppColors.borde),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(icon, color: color, size: 22),
               ),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(icon, color: color, size: 22),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(label, style: AppTypography.titleMedium),
+                    const SizedBox(height: 2),
+                    Text(description, style: AppTypography.caption),
+                  ],
                 ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(label, style: AppTypography.titleMedium),
-                      const SizedBox(height: 2),
-                      Text(description, style: AppTypography.caption),
-                    ],
-                  ),
-                ),
-                Icon(
-                  Icons.chevron_right,
-                  color: AppColors.textoClaroMedio.withValues(alpha: 0.5),
-                ),
-              ],
-            ),
+              ),
+              Icon(Icons.chevron_right, color: AppColors.textoTenue),
+            ],
           ),
         ),
       ),
     );
   }
+}
+
+/// Reparte las tarjetas en 1, 2 o 3 columnas según el ancho disponible.
+class _Grilla extends StatelessWidget {
+  const _Grilla({required this.children});
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, c) {
+      final cols = c.maxWidth >= 1000 ? 3 : (c.maxWidth >= 600 ? 2 : 1);
+      const gap = 12.0;
+      final ancho = (c.maxWidth - gap * (cols - 1)) / cols;
+      return Wrap(
+        spacing: gap,
+        runSpacing: gap,
+        children: [for (final w in children) SizedBox(width: ancho, child: w)],
+      );
+    },
+  );
 }

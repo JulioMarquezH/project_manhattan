@@ -50,7 +50,7 @@ class _AppTextFieldState extends State<AppTextField> {
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: AppTypography.bodyMedium.copyWith(
-              color: AppColors.textoClaroMedio.withValues(alpha: 0.5),
+              color: AppColors.textoTenue,
             ),
             filled: true,
             fillColor: const Color(0xFF1E293B),

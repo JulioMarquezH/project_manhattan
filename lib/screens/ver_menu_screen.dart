@@ -112,7 +112,7 @@ class _VerMenuScreenState extends State<VerMenuScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: AppColors.rojoAlerta,
+          backgroundColor: AppColors.rojoBoton,
           content: Text(
             e.statusCode == 409
                 ? 'No se puede eliminar «${c.nombre}»: tiene productos. '
@@ -158,8 +158,8 @@ class _VerMenuScreenState extends State<VerMenuScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount:   2,
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent:   230,
                       crossAxisSpacing: 14,
                       mainAxisSpacing:  14,
                       childAspectRatio: 1.0,
@@ -434,7 +434,7 @@ class _VerMenuCategoriaScreenState extends State<_VerMenuCategoriaScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('No se pudo eliminar: $e'),
-          backgroundColor: AppColors.rojoAlerta,
+          backgroundColor: AppColors.rojoBoton,
         ),
       );
     }
@@ -572,7 +572,7 @@ class _EmptyState extends StatelessWidget {
           children: [
             Icon(Icons.menu_book_outlined,
                 color:
-                    AppColors.textoClaroMedio.withValues(alpha: 0.3),
+                    AppColors.textoTenue,
                 size: 64),
             const SizedBox(height: 16),
             Text(

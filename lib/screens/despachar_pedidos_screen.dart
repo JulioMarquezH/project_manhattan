@@ -120,8 +120,8 @@ class _DespacharPedidosScreenState extends State<DespacharPedidosScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount:   2,
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent:   230,
                       crossAxisSpacing: 14,
                       mainAxisSpacing:  14,
                       childAspectRatio: 0.95,
@@ -559,7 +559,7 @@ class _ItemRow extends StatelessWidget {
               border: Border.all(
                 color: listo
                     ? AppColors.verdeExito
-                    : AppColors.textoClaroMedio.withValues(alpha: 0.4),
+                    : AppColors.textoTenue,
                 width: 2,
               ),
             ),

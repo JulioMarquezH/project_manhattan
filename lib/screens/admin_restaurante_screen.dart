@@ -49,7 +49,7 @@ class AdminRestauranteScreen extends StatelessWidget {
                 _GridCard(
                   icon:  Icons.people_outline,
                   label: 'Gestionar\nempleado',
-                  color: AppColors.azulControl,
+                  color: AppColors.azulTexto,
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(

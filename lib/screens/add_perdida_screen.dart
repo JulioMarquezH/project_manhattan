@@ -195,7 +195,7 @@ class _AddPerdidaScreenState extends State<AddPerdidaScreen> {
                   hintText: 'Describe qué pasó…',
                   hintStyle: AppTypography.bodyMedium.copyWith(
                       color:
-                          AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+                          AppColors.textoTenue),
                   filled: true,
                   fillColor: const Color(0xFF0F172A),
                   contentPadding: const EdgeInsets.all(14),
@@ -223,7 +223,7 @@ class _AddPerdidaScreenState extends State<AddPerdidaScreen> {
               children: [
                 Expanded(
                     child: Divider(
-                        color: AppColors.azulControl.withValues(alpha: 0.3))),
+                        color: AppColors.borde)),
                 const SizedBox(width: 10),
                 Row(
                   children: [
@@ -237,7 +237,7 @@ class _AddPerdidaScreenState extends State<AddPerdidaScreen> {
                 const SizedBox(width: 10),
                 Expanded(
                     child: Divider(
-                        color: AppColors.azulControl.withValues(alpha: 0.3))),
+                        color: AppColors.borde)),
               ],
             ),
             const SizedBox(height: 4),
@@ -267,7 +267,7 @@ class _AddPerdidaScreenState extends State<AddPerdidaScreen> {
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.textoClaroMedio,
                 side: BorderSide(
-                    color: AppColors.azulControl.withValues(alpha: 0.4)),
+                    color: AppColors.borde),
                 padding: const EdgeInsets.symmetric(vertical: 14),
               ),
               icon: const Icon(Icons.add, size: 16),
@@ -279,7 +279,7 @@ class _AddPerdidaScreenState extends State<AddPerdidaScreen> {
             ElevatedButton(
               onPressed: _saving ? null : _save,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.rojoAlerta,
+                backgroundColor: AppColors.rojoBoton,
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
               child: _saving
@@ -355,7 +355,7 @@ class _PerdidaRowWidgetState extends State<_PerdidaRowWidget> {
       decoration: BoxDecoration(
         color: const Color(0xFF1E293B),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.azulControl.withValues(alpha: 0.3)),
+        border: Border.all(color: AppColors.borde),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -399,8 +399,7 @@ class _PerdidaRowWidgetState extends State<_PerdidaRowWidget> {
                           : widget.row.name,
                       style: widget.row.name.isEmpty
                           ? AppTypography.bodyMedium.copyWith(
-                              color: AppColors.textoClaroMedio
-                                  .withValues(alpha: 0.4))
+                              color: AppColors.textoTenue)
                           : AppTypography.bodyLarge,
                     ),
                   ),
@@ -512,7 +511,7 @@ class _ProductPickerSheetState extends State<_ProductPickerSheet> {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: AppColors.textoClaroMedio.withValues(alpha: 0.3),
+              color: AppColors.textoTenue,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -533,7 +532,7 @@ class _ProductPickerSheetState extends State<_ProductPickerSheet> {
               decoration: InputDecoration(
                 hintText: 'Buscar producto…',
                 hintStyle: AppTypography.bodyMedium.copyWith(
-                    color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+                    color: AppColors.textoTenue),
                 prefixIcon: const Icon(Icons.search,
                     color: AppColors.textoClaroMedio, size: 20),
                 filled: true,
@@ -562,7 +561,7 @@ class _ProductPickerSheetState extends State<_ProductPickerSheet> {
                       'Sin resultados',
                       style: AppTypography.bodyMedium.copyWith(
                           color:
-                              AppColors.textoClaroMedio.withValues(alpha: 0.5)),
+                              AppColors.textoTenue),
                     ),
                   )
                 : ListView.separated(
@@ -571,7 +570,7 @@ class _ProductPickerSheetState extends State<_ProductPickerSheet> {
                         horizontal: 16, vertical: 8),
                     itemCount: filtered.length,
                     separatorBuilder: (_, i) => Divider(
-                        color: AppColors.azulControl.withValues(alpha: 0.3),
+                        color: AppColors.borde,
                         height: 1),
                     itemBuilder: (_, i) {
                       final item = filtered[i];
@@ -642,7 +641,7 @@ Widget _buildRawField({
     decoration: InputDecoration(
       hintText: hint,
       hintStyle: AppTypography.bodyMedium
-          .copyWith(color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+          .copyWith(color: AppColors.textoTenue),
       filled: true,
       fillColor:
           enabled ? const Color(0xFF0F172A) : const Color(0xFF0A111E),

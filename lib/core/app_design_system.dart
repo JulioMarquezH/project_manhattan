@@ -26,6 +26,29 @@ class AppColors {
   static const Color textoClaroAlto = Color(0xFFF8FAFC);
   static const Color textoClaroMedio = Color(0xFFCBD5F5);
 
+  /// Texto secundario, pistas y elementos desactivados. Contraste ≥ 5,7:1
+  /// sobre [superficie] y ≥ 6,9:1 sobre [fondoOscuro] (WCAG AA).
+  static const Color textoTenue = Color(0xFF94A3B8);
+
+  /// Azul legible sobre fondo oscuro (texto, iconos). [azulControl] es
+  /// para rellenos: como texto sobre el fondo no se lee (1,9:1).
+  static const Color azulTexto = Color(0xFF93C5FD);
+
+  // Superficies y bordes
+  static const Color superficie = Color(0xFF1E293B);
+  static const Color superficieAlta = Color(0xFF273449);
+  static const Color borde = Color(0xFF334155);
+
+  /// Borde de campos y controles: ≥ 3:1 contra el fondo (WCAG 1.4.11).
+  static const Color bordeControl = Color(0xFF64748B);
+
+  // Rellenos de botón con texto blanco (contraste ≥ 4,5:1).
+  // naranjaAccion/verdeExito/rojoAlerta se siguen usando para texto e iconos
+  // sobre el fondo oscuro, donde sí se leen bien.
+  static const Color naranjaBoton = Color(0xFFC2410C);
+  static const Color verdeBoton = Color(0xFF047857);
+  static const Color rojoBoton = Color(0xFFB91C1C);
+
   // Texto oscuro (sobre fondo claro)
   static const Color textoOscuroAlto = Color(0xFF020617);
   static const Color textoOscuroMedio = Color(0xFF334155);
@@ -136,15 +159,21 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.fondoOscuro,
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.azulControl,
+        // Azul claro: los controles de Material (interruptores, chips
+        // elegidos, botones de texto, cargadores) se ven sobre el fondo.
+        primary: Color(0xFF60A5FA),
+        onPrimary: AppColors.fondoOscuro,
         secondary: AppColors.naranjaAccion,
+        onSecondary: AppColors.fondoOscuro,
         tertiary: AppColors.verdeExito,
         error: AppColors.rojoAlerta,
+        onError: AppColors.fondoOscuro,
         surface: AppColors.fondoOscuro,
-        onPrimary: AppColors.textoClaroAlto,
-        onSecondary: AppColors.textoClaroAlto,
         onSurface: AppColors.textoClaroAlto,
-        onError: AppColors.textoClaroAlto,
+        onSurfaceVariant: AppColors.textoClaroMedio,
+        outline: AppColors.bordeControl,
+        outlineVariant: AppColors.borde,
+        surfaceContainerHighest: AppColors.superficieAlta,
       ),
       textTheme: TextTheme(
         displayLarge: AppTypography.displayLarge,
@@ -157,15 +186,47 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.naranjaAccion,
+          backgroundColor: AppColors.naranjaBoton,
           foregroundColor: AppColors.textoClaroAlto,
+          disabledBackgroundColor: AppColors.superficieAlta,
+          disabledForegroundColor: AppColors.textoTenue,
           textStyle: AppTypography.labelLarge,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          minimumSize: const Size(64, 44),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(foregroundColor: AppColors.azulTexto),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: AppColors.textoClaroAlto,
+          side: const BorderSide(color: AppColors.bordeControl),
+          minimumSize: const Size(64, 44),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: AppTypography.bodyMedium.copyWith(color: AppColors.textoTenue),
+        labelStyle: AppTypography.bodyMedium,
+        helperStyle: AppTypography.caption,
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: AppColors.superficie,
+        selectedColor: AppColors.azulControl,
+        side: const BorderSide(color: AppColors.bordeControl),
+        labelStyle: AppTypography.bodyMedium.copyWith(color: AppColors.textoClaroAlto),
+        secondaryLabelStyle: AppTypography.bodyMedium.copyWith(color: AppColors.textoClaroAlto),
+        checkmarkColor: AppColors.textoClaroAlto,
+      ),
+      snackBarTheme: const SnackBarThemeData(
+        backgroundColor: AppColors.superficieAlta,
+        contentTextStyle: TextStyle(color: AppColors.textoClaroAlto),
+        actionTextColor: AppColors.azulTexto,
+      ),
+      dividerTheme: const DividerThemeData(color: AppColors.borde),
     );
   }
 }

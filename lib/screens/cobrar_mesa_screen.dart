@@ -170,7 +170,7 @@ class _CobrarMesaScreenState extends State<CobrarMesaScreen> {
           ElevatedButton(
             onPressed: () => Navigator.pop(ctx, true),
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.verdeExito,
+              backgroundColor: AppColors.verdeBoton,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               padding: const EdgeInsets.symmetric(
@@ -253,8 +253,7 @@ class _CobrarMesaScreenState extends State<CobrarMesaScreen> {
                       color: const Color(0xFF1E293B),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                          color: AppColors.azulControl
-                              .withValues(alpha: 0.3)),
+                          color: AppColors.borde),
                     ),
                     child: Row(children: [
                       Container(
@@ -401,7 +400,7 @@ class _ResumenItemRow extends StatelessWidget {
         color: const Color(0xFF1E293B),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-            color: AppColors.azulControl.withValues(alpha: 0.2)),
+            color: AppColors.borde),
       ),
       child: Row(children: [
         Container(
@@ -499,8 +498,7 @@ class _MetodoPagoTile extends StatelessWidget {
                     border: Border.all(
                       color: activo
                           ? AppColors.verdeExito
-                          : AppColors.textoClaroMedio
-                              .withValues(alpha: 0.4),
+                          : AppColors.textoTenue,
                       width: 2,
                     ),
                   ),
@@ -539,8 +537,7 @@ class _MetodoPagoTile extends StatelessWidget {
                       .copyWith(color: AppColors.naranjaAccion),
                   hintText: 'Monto en $metodo',
                   hintStyle: AppTypography.caption.copyWith(
-                      color: AppColors.textoClaroMedio
-                          .withValues(alpha: 0.4)),
+                      color: AppColors.textoTenue),
                   filled: true,
                   fillColor: const Color(0xFF0F172A),
                   contentPadding: const EdgeInsets.symmetric(
@@ -548,8 +545,7 @@ class _MetodoPagoTile extends StatelessWidget {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(
-                        color: AppColors.azulControl
-                            .withValues(alpha: 0.3)),
+                        color: AppColors.bordeControl),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -615,7 +611,7 @@ class _BarraInferior extends StatelessWidget {
         color: AppColors.fondoOscuro,
         border: Border(
           top: BorderSide(
-              color: AppColors.azulControl.withValues(alpha: 0.2)),
+              color: AppColors.borde),
         ),
       ),
       child: Column(
@@ -645,7 +641,7 @@ class _BarraInferior extends StatelessWidget {
           ElevatedButton(
             onPressed: (puedeCobrar && !cobrando) ? onCobrar : null,
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.verdeExito,
+              backgroundColor: AppColors.verdeBoton,
               disabledBackgroundColor:
                   AppColors.verdeExito.withValues(alpha: 0.35),
               shape: RoundedRectangleBorder(

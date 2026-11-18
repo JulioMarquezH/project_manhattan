@@ -121,8 +121,8 @@ class _AtenderMesaScreenState extends State<AtenderMesaScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount:   2,
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent:   230,
                       crossAxisSpacing: 14,
                       mainAxisSpacing:  14,
                       childAspectRatio: 0.95,

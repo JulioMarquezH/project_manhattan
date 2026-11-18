@@ -280,8 +280,8 @@ class _CarteraScreenState extends State<CarteraScreen> {
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 340,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                       childAspectRatio: 2,
@@ -323,7 +323,7 @@ class _CarteraScreenState extends State<CarteraScreen> {
                   _ActionCard(
                     icon: Icons.bar_chart,
                     label: 'Finanzas',
-                    color: AppColors.azulControl,
+                    color: AppColors.azulTexto,
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -389,7 +389,7 @@ class _StatsCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1E293B),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.azulControl.withValues(alpha: 0.3)),
+        border: Border.all(color: AppColors.borde),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

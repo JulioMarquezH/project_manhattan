@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        backgroundColor: AppColors.verdeExito,
+        backgroundColor: AppColors.verdeBoton,
         content: Text(
           'Perfil actualizado',
           style: AppTypography.bodyMedium.copyWith(
@@ -161,14 +161,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             shape: BoxShape.circle,
                             color: AppColors.azulControl.withValues(alpha: 0.3),
                             border: Border.all(
-                              color: AppColors.azulControl.withValues(alpha: 0.6),
+                              color: AppColors.borde,
                               width: 2,
                             ),
                           ),
                           child: const Icon(
                             Icons.person,
                             size: 72,
-                            color: AppColors.azulControl,
+                            color: AppColors.azulTexto,
                           ),
                         ),
                         Container(
@@ -229,7 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         decoration: InputDecoration(
                           hintText: 'Sobre ti...',
                           hintStyle: AppTypography.bodyMedium.copyWith(
-                            color: AppColors.textoClaroMedio.withValues(alpha: 0.5),
+                            color: AppColors.textoTenue,
                           ),
                           filled: true,
                           fillColor: const Color(0xFF1E293B),

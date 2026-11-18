@@ -189,8 +189,8 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
           : Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 80),
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 230,
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 12,
                   childAspectRatio: 1.05,
@@ -245,7 +245,7 @@ class _RestaurantCard extends StatelessWidget {
           color: const Color(0xFF1E293B),
           borderRadius: BorderRadius.circular(14),
           border: Border.all(
-            color: AppColors.azulControl.withValues(alpha: 0.3),
+            color: AppColors.borde,
           ),
         ),
         child: Stack(
@@ -264,7 +264,7 @@ class _RestaurantCard extends StatelessWidget {
                     ),
                     child: const Icon(
                       Icons.store_outlined,
-                      color: AppColors.azulControl,
+                      color: AppColors.azulTexto,
                       size: 20,
                     ),
                   ),

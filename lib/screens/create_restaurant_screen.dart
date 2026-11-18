@@ -173,7 +173,7 @@ class _CreateRestaurantScreenState extends State<CreateRestaurantScreen> {
                         color: const Color(0xFF1E293B),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: AppColors.azulControl.withValues(alpha: 0.4),
+                          color: AppColors.borde,
                         ),
                       ),
                       child: const Icon(
@@ -213,7 +213,7 @@ class _CreateRestaurantScreenState extends State<CreateRestaurantScreen> {
                   decoration: InputDecoration(
                     hintText: 'Describe el restaurante...',
                     hintStyle: AppTypography.bodyMedium.copyWith(
-                      color: AppColors.textoClaroMedio.withValues(alpha: 0.5),
+                      color: AppColors.textoTenue,
                     ),
                     filled: true,
                     fillColor: const Color(0xFF1E293B),
@@ -356,7 +356,7 @@ class _PaymentChip extends StatelessWidget {
           border: Border.all(
             color: selected
                 ? AppColors.naranjaAccion
-                : AppColors.azulControl.withValues(alpha: 0.3),
+                : AppColors.bordeControl,
             width: selected ? 1.5 : 1,
           ),
         ),
@@ -405,7 +405,7 @@ class _AddMethodChipState extends State<_AddMethodChip> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: AppColors.textoClaroMedio.withValues(alpha: 0.3),
+              color: AppColors.textoTenue,
               width: 1,
             ),
           ),

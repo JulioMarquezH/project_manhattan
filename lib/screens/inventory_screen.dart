@@ -172,7 +172,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('No se pudo eliminar: $e'),
-          backgroundColor: AppColors.rojoAlerta,
+          backgroundColor: AppColors.rojoBoton,
         ),
       );
     }
@@ -245,7 +245,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
       floatingActionButton: (isToday && !_dayClosed)
           ? FloatingActionButton.extended(
               onPressed: _showAddSheet,
-              backgroundColor: AppColors.naranjaAccion,
+              backgroundColor: AppColors.naranjaBoton,
               elevation: 2,
               icon: const Icon(Icons.add, color: Colors.white, size: 20),
               label: Text(
@@ -347,7 +347,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                     isDense: true,
                     hintText: 'Buscar ingrediente…',
                     hintStyle: AppTypography.bodyMedium.copyWith(
-                        color: AppColors.textoClaroMedio.withValues(alpha: 0.6)),
+                        color: AppColors.textoTenue),
                     prefixIcon: const Icon(Icons.search,
                         color: AppColors.textoClaroMedio, size: 20),
                     suffixIcon: _query.isEmpty
@@ -370,7 +370,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(
-                          color: AppColors.azulControl.withValues(alpha: 0.3)),
+                          color: AppColors.bordeControl),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
