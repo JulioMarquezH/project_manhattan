@@ -73,7 +73,7 @@ class SelectorProductosState extends State<SelectorProductos> {
   List<Producto> get _filtrados {
     final q = _normalizar(_q);
     final palabras = q.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
-    return widget.productos.where((p) {
+    final lista = widget.productos.where((p) {
       if (_categoriaId != null && p.categoriaId != _categoriaId) return false;
       if (palabras.isEmpty) return true;
       final nombre = _normalizar(p.nombre);
@@ -82,6 +82,10 @@ class SelectorProductosState extends State<SelectorProductos> {
       if (codigo.isNotEmpty && codigo.startsWith(q)) return true;
       return _normalizar(p.id).contains(q);
     }).toList();
+    // Orden alfabético fijo: el servidor no garantiza orden y un producto
+    // cambiaba de lugar cada vez que se movía su stock.
+    lista.sort((a, b) => _normalizar(a.nombre).compareTo(_normalizar(b.nombre)));
+    return lista;
   }
 
   void _enviar(String _) {
@@ -134,6 +138,8 @@ class SelectorProductosState extends State<SelectorProductos> {
           autofocus: widget.autofocus,
           onChanged: (_) => setState(() {}),
           onSubmitted: _enviar,
+          // Sin esto, Enter quita el foco y la siguiente lectura del lector se pierde.
+          onEditingComplete: () {},
           textInputAction: TextInputAction.search,
           style: AppTypography.bodyLarge,
           cursorColor: AppColors.naranjaAccion,
