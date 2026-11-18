@@ -134,6 +134,13 @@ class _AtenderMesaScreenState extends State<AtenderMesaScreen> {
                           mesa:     _mesas[i],
                           atendida: _atendidas.contains(_mesas[i].id),
                           onTap:    () => _onTapMesa(_mesas[i]),
+                          onEliminar: widget.user.can('cerrar_mesa')
+                              ? () async {
+                                  final borrada = await eliminarMesaConConfirmacion(
+                                      context, widget.restaurant, _mesas[i]);
+                                  if (borrada && mounted) _load();
+                                }
+                              : null,
                         );
                       }
                       return _AnadirCard(onTap: _goToAddMesa);
@@ -155,11 +162,13 @@ class _MesaCard extends StatelessWidget {
     required this.mesa,
     required this.atendida,
     required this.onTap,
+    this.onEliminar,
   });
 
-  final Mesa         mesa;
-  final bool         atendida;
-  final VoidCallback onTap;
+  final Mesa          mesa;
+  final bool          atendida;
+  final VoidCallback  onTap;
+  final VoidCallback? onEliminar;
 
   @override
   Widget build(BuildContext context) {
@@ -202,6 +211,17 @@ class _MesaCard extends StatelessWidget {
                           fontSize: 11),
                     ),
                   ),
+                  const Spacer(),
+                  if (onEliminar != null)
+                    IconButton(
+                      tooltip: 'Eliminar mesa',
+                      onPressed: onEliminar,
+                      visualDensity: VisualDensity.compact,
+                      constraints: const BoxConstraints(minWidth: 36, minHeight: 36),
+                      padding: EdgeInsets.zero,
+                      icon: const Icon(Icons.delete_outline,
+                          size: 20, color: AppColors.textoClaroMedio),
+                    ),
                 ],
               ),
               const SizedBox(height: 12),

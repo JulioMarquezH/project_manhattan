@@ -8,6 +8,7 @@ import '../widgets/restaurant_header.dart';
 import 'add_empleado_screen.dart';
 import 'add_rol_screen.dart';
 import 'edit_empleado_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 class GestionEmpleadoScreen extends StatefulWidget {
   const GestionEmpleadoScreen({
@@ -232,7 +233,9 @@ class _GestionEmpleadoScreenState extends State<GestionEmpleadoScreen> {
         ),
         title: Text('Gestionar empleado', style: AppTypography.titleLarge),
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: _loading
           ? const Center(
               child: CircularProgressIndicator(color: AppColors.naranjaAccion))
           : SingleChildScrollView(
@@ -249,8 +252,8 @@ class _GestionEmpleadoScreenState extends State<GestionEmpleadoScreen> {
                   Text('Empleados', style: AppTypography.titleMedium),
                   const SizedBox(height: 12),
 
-                  GridView.count(
-                    crossAxisCount: 2,
+                  GridView.extent(
+                    maxCrossAxisExtent: 230,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     crossAxisSpacing: 14,
@@ -333,6 +336,7 @@ class _GestionEmpleadoScreenState extends State<GestionEmpleadoScreen> {
                 ],
               ),
             ),
+      ),
     );
   }
 }

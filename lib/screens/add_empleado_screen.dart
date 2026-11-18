@@ -5,6 +5,7 @@ import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/app_text_field.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 enum _Modo { crear, existente }
 
@@ -164,7 +165,9 @@ class _AddEmpleadoScreenState extends State<AddEmpleadoScreen> {
         ),
         title: Text('Añadir empleado', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -198,6 +201,7 @@ class _AddEmpleadoScreenState extends State<AddEmpleadoScreen> {
             const SizedBox(height: 24),
           ],
         ),
+      ),
       ),
     );
   }

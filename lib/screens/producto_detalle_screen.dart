@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 /// Detalle de un producto del menú: muestra su información y permite
 /// eliminarlo del menú (lista de productos). NO afecta el inventario.
@@ -93,7 +94,9 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
         ),
         title: Text('Detalle del producto', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -213,6 +216,7 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
             ),
           ],
         ),
+      ),
       ),
     );
   }

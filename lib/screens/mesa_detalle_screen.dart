@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../core/api_exception.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
@@ -36,6 +37,51 @@ class OrdenItem {
   String get configText => configuracion
       .map((s) => '${s.ingrediente}: ${s.opcion}')
       .join(' · ');
+}
+
+/// Pide confirmación y elimina la mesa junto con su pedido, sin cobrarlo.
+/// Devuelve true si se eliminó.
+Future<bool> eliminarMesaConConfirmacion(
+    BuildContext context, Restaurant restaurant, Mesa mesa) async {
+  final ok = await showDialog<bool>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      backgroundColor: AppColors.superficie,
+      title: Text('¿Eliminar la mesa ${mesa.numero}?',
+          style: AppTypography.titleMedium),
+      content: Text(
+        'Se borra la mesa y su pedido sin cobrarlo. No se puede deshacer.',
+        style: AppTypography.bodyMedium,
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(ctx, false),
+          child: const Text('Cancelar'),
+        ),
+        ElevatedButton(
+          onPressed: () => Navigator.pop(ctx, true),
+          style: ElevatedButton.styleFrom(backgroundColor: AppColors.rojoBoton),
+          child: const Text('Eliminar'),
+        ),
+      ],
+    ),
+  );
+  if (ok != true || !context.mounted) return false;
+  final messenger = ScaffoldMessenger.of(context);
+  try {
+    await MockPedidosApi.eliminarPedido(restaurant.id, mesa.id);
+    await MockAtenderMesaApi.removeMesa(restaurant.id, mesa.id);
+  } on ApiException catch (e) {
+    messenger.showSnackBar(SnackBar(content: Text(e.message)));
+    return false;
+  } catch (_) {
+    messenger.showSnackBar(
+        const SnackBar(content: Text('Sin conexión: la mesa no se eliminó')));
+    return false;
+  }
+  messenger.showSnackBar(
+      SnackBar(content: Text('Mesa ${mesa.numero} eliminada')));
+  return true;
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -283,6 +329,16 @@ class _MesaDetalleScreenState extends State<MesaDetalleScreen> {
                   fontWeight: FontWeight.w700),
             ),
           ),
+          if (widget.user.can('cerrar_mesa'))
+            IconButton(
+              tooltip: 'Eliminar mesa',
+              icon: const Icon(Icons.delete_outline, color: AppColors.textoClaroMedio),
+              onPressed: () async {
+                final borrada = await eliminarMesaConConfirmacion(
+                    context, widget.restaurant, widget.mesa);
+                if (borrada && context.mounted) Navigator.pop(context, true);
+              },
+            ),
           // Icono de cobrar
           IconButton(
             tooltip: 'Cobrar mesa',

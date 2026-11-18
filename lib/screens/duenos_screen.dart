@@ -4,6 +4,7 @@ import '../core/api_exception.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/app_text_field.dart';
+import '../widgets/ancho_maximo.dart';
 
 /// Administrador de dueños: los clientes que pagan por usar el software.
 /// Solo el superadmin llega aquí (el backend responde 403 al resto).
@@ -261,7 +262,9 @@ class _DuenosScreenState extends State<DuenosScreen> {
             style:
                 AppTypography.caption.copyWith(color: AppColors.textoClaroAlto)),
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: _loading
           ? const Center(
               child: CircularProgressIndicator(color: AppColors.naranjaAccion))
           : _error != null
@@ -303,6 +306,7 @@ class _DuenosScreenState extends State<DuenosScreen> {
                     ],
                   ),
                 ),
+      ),
     );
   }
 }

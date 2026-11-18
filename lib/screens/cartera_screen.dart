@@ -8,6 +8,7 @@ import '../widgets/restaurant_header.dart';
 import 'add_gasto_screen.dart';
 import 'add_perdida_screen.dart';
 import 'finanzas_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 final _currencyFmt = NumberFormat.currency(locale: 'es_CO', symbol: '\$', decimalDigits: 0);
 
@@ -244,7 +245,9 @@ class _CarteraScreenState extends State<CarteraScreen> {
         ),
         title: Text('Cartera', style: AppTypography.titleLarge),
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: _loading
           ? const Center(child: CircularProgressIndicator(color: AppColors.naranjaAccion))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16),
@@ -338,6 +341,7 @@ class _CarteraScreenState extends State<CarteraScreen> {
                 ],
               ),
             ),
+      ),
     );
   }
 }

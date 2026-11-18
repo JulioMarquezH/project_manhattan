@@ -5,6 +5,7 @@ import '../mock/mock_api.dart';
 import 'duenos_screen.dart';
 import 'login_screen.dart';
 import 'restaurant_list_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 /// Pantalla de entrada del superadmin (la plataforma). Solo la ve él:
 /// elige entre usar la app normalmente o administrar a sus clientes (dueños).
@@ -61,7 +62,9 @@ class SuperadminHubScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -122,6 +125,7 @@ class SuperadminHubScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }

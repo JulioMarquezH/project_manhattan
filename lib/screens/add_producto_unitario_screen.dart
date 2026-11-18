@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 // ---------------------------------------------------------------------------
 // State holder para cada entrada de inventario
@@ -161,7 +162,9 @@ class _AddProductoUnitarioScreenState
         ),
         title: Text('Producto unitario', style: AppTypography.titleLarge),
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: _loading
           ? const Center(
               child: CircularProgressIndicator(
                   color: AppColors.naranjaAccion))
@@ -326,6 +329,7 @@ class _AddProductoUnitarioScreenState
                 ],
               ),
             ),
+      ),
     );
   }
 }

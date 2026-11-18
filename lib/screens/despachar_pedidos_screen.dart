@@ -4,6 +4,7 @@ import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
 import 'add_pantalla_despacho_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 class DespacharPedidosScreen extends StatefulWidget {
   const DespacharPedidosScreen({
@@ -93,7 +94,9 @@ class _DespacharPedidosScreenState extends State<DespacharPedidosScreen> {
         ),
         title: Text('Despachar pedidos', style: AppTypography.titleLarge),
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: _loading
           ? const Center(
               child: CircularProgressIndicator(
                   color: AppColors.naranjaAccion))
@@ -142,6 +145,7 @@ class _DespacharPedidosScreenState extends State<DespacharPedidosScreen> {
                 ],
               ),
             ),
+      ),
     );
   }
 }
@@ -409,7 +413,9 @@ class _DespachoDetalleScreenState extends State<_DespachoDetalleScreen> {
             ),
         ],
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: _loading
           ? const Center(
               child: CircularProgressIndicator(
                   color: AppColors.naranjaAccion))
@@ -430,6 +436,7 @@ class _DespachoDetalleScreenState extends State<_DespachoDetalleScreen> {
                     );
                   },
                 ),
+      ),
     );
   }
 }

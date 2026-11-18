@@ -6,6 +6,7 @@ import '../core/api_exception.dart';
 import '../mock/mock_api.dart';
 import '../widgets/scan_field.dart';
 import 'productos_stock_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 /// Qué hace la pantalla con lo escaneado.
 enum TipoMovimiento {
@@ -159,7 +160,9 @@ class _MovimientoStockScreenState extends State<MovimientoStockScreen> {
         elevation: 0,
         title: Text(_tipo.titulo, style: AppTypography.titleLarge),
       ),
-      body: Padding(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -227,6 +230,7 @@ class _MovimientoStockScreenState extends State<MovimientoStockScreen> {
             ),
           ],
         ),
+      ),
       ),
     );
   }

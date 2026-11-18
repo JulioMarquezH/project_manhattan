@@ -5,6 +5,7 @@ import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
 import 'add_producto_compuesto_screen.dart';
 import 'add_producto_unitario_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 class AddProductoScreen extends StatelessWidget {
   const AddProductoScreen({
@@ -41,7 +42,9 @@ class AddProductoScreen extends StatelessWidget {
         ),
         title: Text('Añadir producto', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -131,6 +134,7 @@ class AddProductoScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }

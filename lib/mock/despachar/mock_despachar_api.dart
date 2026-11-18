@@ -25,7 +25,7 @@ const kDespachoIconos = <IconData>[
 const kDespachoColores = <Color>[
   Color(0xFFF97316), // naranja
   Color(0xFF1E3A8A), // azul
-  Color(0xFF8B5CF6), // morado
+  Color(0xFFA78BFA), // morado
   Color(0xFF10B981), // verde
   Color(0xFFEC4899), // rosa
   Color(0xFFF59E0B), // ámbar

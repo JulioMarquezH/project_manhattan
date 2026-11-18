@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 // ---------------------------------------------------------------------------
 // State holders (3 niveles)
@@ -233,7 +234,9 @@ class _AddProductoCompuestoScreenState
         ),
         title: Text('Producto compuesto', style: AppTypography.titleLarge),
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: _loading
           ? const Center(
               child: CircularProgressIndicator(
                   color: AppColors.naranjaAccion))
@@ -393,6 +396,7 @@ class _AddProductoCompuestoScreenState
                 ],
               ),
             ),
+      ),
     );
   }
 }
@@ -1300,7 +1304,7 @@ class _CatSelectorFieldState extends State<_CatSelectorField> {
                           : Icons.close,
                       color: _seleccionada
                           ? (_esNueva
-                              ? const Color(0xFF8B5CF6)
+                              ? const Color(0xFFA78BFA)
                               : AppColors.azulControl)
                           : AppColors.textoClaroMedio,
                       size: 18,
@@ -1354,7 +1358,7 @@ class _CatSelectorFieldState extends State<_CatSelectorField> {
                           label: cat.nombre,
                           sub:   '',
                           icon:  Icons.category_outlined,
-                          color: const Color(0xFF8B5CF6),
+                          color: const Color(0xFFA78BFA),
                           onTap: () => _selectExisting(cat),
                         ))
                     .toList(),
@@ -1371,26 +1375,26 @@ class _CatSelectorFieldState extends State<_CatSelectorField> {
               padding: const EdgeInsets.symmetric(
                   horizontal: 12, vertical: 11),
               decoration: BoxDecoration(
-                color: const Color(0xFF8B5CF6).withValues(alpha: 0.08),
+                color: const Color(0xFFA78BFA).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                    color: const Color(0xFF8B5CF6)
+                    color: const Color(0xFFA78BFA)
                         .withValues(alpha: 0.35)),
               ),
               child: Row(children: [
                 const Icon(Icons.add_circle_outline,
-                    color: Color(0xFF8B5CF6), size: 18),
+                    color: Color(0xFFA78BFA), size: 18),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     'Crear categoría "$q"',
                     style: AppTypography.bodyMedium
-                        .copyWith(color: const Color(0xFF8B5CF6)),
+                        .copyWith(color: const Color(0xFFA78BFA)),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 const Icon(Icons.chevron_right,
-                    color: Color(0xFF8B5CF6), size: 18),
+                    color: Color(0xFFA78BFA), size: 18),
               ]),
             ),
           ),

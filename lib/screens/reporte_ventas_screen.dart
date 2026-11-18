@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../core/app_design_system.dart';
 import '../core/api_exception.dart';
 import '../mock/mock_api.dart';
+import '../widgets/ancho_maximo.dart';
 
 /// Ventas, costo, utilidad y margen del periodo, por categoría y por producto.
 class ReporteVentasScreen extends StatefulWidget {
@@ -104,7 +105,9 @@ class _ReporteVentasScreenState extends State<ReporteVentasScreen> {
         elevation: 0,
         title: Text('Reporte de ventas', style: AppTypography.titleLarge),
       ),
-      body: ListView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: ListView(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
         children: [
           Wrap(
@@ -150,6 +153,7 @@ class _ReporteVentasScreenState extends State<ReporteVentasScreen> {
           else
             ..._contenido(_rep!),
         ],
+      ),
       ),
     );
   }

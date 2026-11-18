@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 final _currencyFmt = NumberFormat.currency(
     locale: 'es_CO', symbol: '\$', decimalDigits: 0);
@@ -37,7 +38,9 @@ class DetalleGastoScreen extends StatelessWidget {
         ),
         title: Text('Detalle del gasto', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -111,6 +114,7 @@ class DetalleGastoScreen extends StatelessWidget {
             const SizedBox(height: 32),
           ],
         ),
+      ),
       ),
     );
   }

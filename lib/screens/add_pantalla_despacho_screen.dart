@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
+import '../widgets/ancho_maximo.dart';
 
 class AddPantallaDespachoScreen extends StatefulWidget {
   const AddPantallaDespachoScreen({
@@ -90,7 +91,9 @@ class _AddPantallaDespachoScreenState
         ),
         title: Text('Nueva pantalla', style: AppTypography.titleLarge),
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: _loading
           ? const Center(
               child: CircularProgressIndicator(
                   color: AppColors.naranjaAccion))
@@ -319,6 +322,7 @@ class _AddPantallaDespachoScreenState
                 ],
               ),
             ),
+      ),
     );
   }
 }

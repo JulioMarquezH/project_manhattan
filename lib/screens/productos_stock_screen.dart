@@ -6,6 +6,7 @@ import '../core/app_design_system.dart';
 import '../core/api_exception.dart';
 import '../mock/mock_api.dart';
 import 'movimiento_stock_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 final _fmt = NumberFormat.currency(locale: 'es_CO', symbol: '\$', decimalDigits: 0);
 
@@ -138,7 +139,9 @@ class _ProductosStockScreenState extends State<ProductosStockScreen> {
         icon: const Icon(Icons.add, color: AppColors.textoClaroAlto),
         label: Text('Producto', style: AppTypography.labelLarge.copyWith(color: AppColors.textoClaroAlto)),
       ),
-      body: _cargando
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: _cargando
           ? const Center(child: CircularProgressIndicator())
           : _error != null
           ? Center(child: Text(_error!, style: AppTypography.bodyMedium))
@@ -226,6 +229,7 @@ class _ProductosStockScreenState extends State<ProductosStockScreen> {
                 ],
               ),
             ),
+      ),
     );
   }
 }

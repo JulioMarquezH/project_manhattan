@@ -4,6 +4,7 @@ import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../mock/gestion_empleado/mock_gestion_empleado_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 class AddRolScreen extends StatefulWidget {
   const AddRolScreen({
@@ -82,7 +83,9 @@ class _AddRolScreenState extends State<AddRolScreen> {
         ),
         title: Text('Nuevo rol', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -234,6 +237,7 @@ class _AddRolScreenState extends State<AddRolScreen> {
             const SizedBox(height: 24),
           ],
         ),
+      ),
       ),
     );
   }
