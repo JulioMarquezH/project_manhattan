@@ -54,6 +54,15 @@ class Producto {
   final bool    visible;
   final List<IngredienteReceta> ingredientes; // solo para compuestos
 
+  // Venta al detalle (licorera/tienda). En un plato de restaurante quedan
+  // en sus valores por defecto y controlaStock = false.
+  final String? codigoBarras;
+  final double  costo;
+  final bool    controlaStock;
+  final double  stock;
+  final double  stockMinimo;
+  final String  unidad;
+
   const Producto({
     required this.id,
     required this.nombre,
@@ -62,7 +71,15 @@ class Producto {
     this.foto,
     this.visible = true,
     this.ingredientes = const [],
+    this.codigoBarras,
+    this.costo = 0,
+    this.controlaStock = false,
+    this.stock = 0,
+    this.stockMinimo = 0,
+    this.unidad = 'und',
   });
+
+  bool get stockBajo => controlaStock && stock <= stockMinimo;
 
   bool get esCompuesto => ingredientes.isNotEmpty;
 
@@ -82,6 +99,12 @@ class Producto {
         foto:        foto        ?? this.foto,
         visible:     visible     ?? this.visible,
         ingredientes: ingredientes ?? this.ingredientes,
+        codigoBarras:  codigoBarras,
+        costo:         costo,
+        controlaStock: controlaStock,
+        stock:         stock,
+        stockMinimo:   stockMinimo,
+        unidad:        unidad,
       );
 
   static Producto fromJson(Map<String, dynamic> j) => Producto(
@@ -94,6 +117,12 @@ class Producto {
         ingredientes: (j['ingredientes'] as List? ?? const [])
             .map((e) => IngredienteReceta.fromJson(e as Map<String, dynamic>))
             .toList(),
+        codigoBarras:  j['codigoBarras'] as String?,
+        costo:         (j['costo'] as num? ?? 0).toDouble(),
+        controlaStock: j['controlaStock'] as bool? ?? false,
+        stock:         (j['stock'] as num? ?? 0).toDouble(),
+        stockMinimo:   (j['stockMinimo'] as num? ?? 0).toDouble(),
+        unidad:        j['unidad'] as String? ?? 'und',
       );
 }
 
