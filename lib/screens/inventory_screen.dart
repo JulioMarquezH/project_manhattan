@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 class InventoryScreen extends StatefulWidget {
   const InventoryScreen({
@@ -255,7 +256,9 @@ class _InventoryScreenState extends State<InventoryScreen> {
               ),
             )
           : null,
-      body: Column(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
@@ -417,6 +420,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                           ),
           ),
         ],
+      ),
       ),
     );
   }

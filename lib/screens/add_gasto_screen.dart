@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 class AddGastoScreen extends StatefulWidget {
   const AddGastoScreen({
@@ -320,7 +321,9 @@ class _AddGastoScreenState extends State<AddGastoScreen> {
         ),
         title: Text('Añadir gasto', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -551,6 +554,7 @@ class _AddGastoScreenState extends State<AddGastoScreen> {
             const SizedBox(height: 24),
           ],
         ),
+      ),
       ),
     );
   }

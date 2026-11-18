@@ -5,6 +5,7 @@ import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
 import 'gestion_empleado_screen.dart';
 import 'gestion_menu_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 class AdminRestauranteScreen extends StatelessWidget {
   const AdminRestauranteScreen({
@@ -29,7 +30,9 @@ class AdminRestauranteScreen extends StatelessWidget {
         title: Text('Administración de restaurante',
             style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -39,8 +42,8 @@ class AdminRestauranteScreen extends StatelessWidget {
             const SizedBox(height: 24),
 
             // Grid de secciones
-            GridView.count(
-              crossAxisCount: 2,
+            GridView.extent(
+              maxCrossAxisExtent: 220,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisSpacing: 14,
@@ -78,6 +81,7 @@ class AdminRestauranteScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }

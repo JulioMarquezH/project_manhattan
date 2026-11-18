@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 class AddCategoriaScreen extends StatefulWidget {
   const AddCategoriaScreen({
@@ -66,7 +67,9 @@ class _AddCategoriaScreenState extends State<AddCategoriaScreen> {
         ),
         title: Text('Añadir categoría', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -200,6 +203,7 @@ class _AddCategoriaScreenState extends State<AddCategoriaScreen> {
             const SizedBox(height: 24),
           ],
         ),
+      ),
       ),
     );
   }

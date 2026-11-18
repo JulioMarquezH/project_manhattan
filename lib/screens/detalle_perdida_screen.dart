@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 final _dateFmt = DateFormat('dd MMM yyyy — hh:mm a', 'es');
 
@@ -35,7 +36,9 @@ class DetallePerdidaScreen extends StatelessWidget {
         ),
         title: Text('Detalle de pérdida', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -91,6 +94,7 @@ class DetallePerdidaScreen extends StatelessWidget {
             const SizedBox(height: 32),
           ],
         ),
+      ),
       ),
     );
   }

@@ -7,6 +7,7 @@ import '../widgets/restaurant_header.dart';
 import 'detalle_gasto_screen.dart';
 import 'detalle_perdida_screen.dart';
 import 'detalle_venta_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 final _currencyFmt = NumberFormat.currency(
     locale: 'es_CO', symbol: '\$', decimalDigits: 0);
@@ -182,7 +183,9 @@ class _FinanzasScreenState extends State<FinanzasScreen> {
         ),
         title: Text('Finanzas', style: AppTypography.titleLarge),
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: _loading
           ? const Center(
               child: CircularProgressIndicator(color: AppColors.naranjaAccion))
           : Column(
@@ -311,6 +314,7 @@ class _FinanzasScreenState extends State<FinanzasScreen> {
                 ),
               ],
             ),
+      ),
     );
   }
 

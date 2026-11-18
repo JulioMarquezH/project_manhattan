@@ -180,7 +180,7 @@ class _RestaurantViewScreenState extends State<RestaurantViewScreen> {
                     icon: Icons.delivery_dining_outlined,
                     label: 'Despachar pedidos',
                     description: 'Ver pedidos listos para entregar',
-                    color: const Color(0xFF8B5CF6),
+                    color: const Color(0xFFA78BFA),
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) =>

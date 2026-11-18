@@ -6,6 +6,7 @@ import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
 import 'add_producto_screen.dart';
 import 'producto_detalle_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 class GestionMenuScreen extends StatefulWidget {
   const GestionMenuScreen({
@@ -134,7 +135,9 @@ class _GestionMenuScreenState extends State<GestionMenuScreen> {
               .copyWith(color: AppColors.textoClaroAlto),
         ),
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: _loading
           ? const Center(
               child: CircularProgressIndicator(
                   color: AppColors.naranjaAccion))
@@ -224,6 +227,7 @@ class _GestionMenuScreenState extends State<GestionMenuScreen> {
                 ],
               ),
             ),
+      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/app_text_field.dart';
 import 'login_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -131,7 +132,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         title: Text('Perfil', style: AppTypography.titleLarge),
       ),
-      body: _loadingData
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: _loadingData
           ? const Center(
               child: CircularProgressIndicator(color: AppColors.naranjaAccion),
             )
@@ -288,6 +291,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
+      ),
     );
   }
 }

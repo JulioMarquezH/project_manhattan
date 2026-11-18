@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/app_text_field.dart';
+import '../widgets/ancho_maximo.dart';
 
 const _defaultPaymentMethods = [
   'efectivo',
@@ -142,7 +143,9 @@ class _CreateRestaurantScreenState extends State<CreateRestaurantScreen> {
           style: AppTypography.titleLarge,
         ),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -316,6 +319,7 @@ class _CreateRestaurantScreenState extends State<CreateRestaurantScreen> {
             const SizedBox(height: 20),
           ],
         ),
+      ),
       ),
     );
   }

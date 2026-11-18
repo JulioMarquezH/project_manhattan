@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
+import '../widgets/ancho_maximo.dart';
 
 class CobrarMesaScreen extends StatefulWidget {
   const CobrarMesaScreen({
@@ -238,7 +239,9 @@ class _CobrarMesaScreenState extends State<CobrarMesaScreen> {
         title: Text('Cobrar — Mesa ${widget.mesa.numero}',
             style: AppTypography.titleLarge),
       ),
-      body: Column(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
@@ -371,6 +374,7 @@ class _CobrarMesaScreenState extends State<CobrarMesaScreen> {
             onCobrar:     _cobrar,
           ),
         ],
+      ),
       ),
     );
   }

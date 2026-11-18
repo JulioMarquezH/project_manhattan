@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 class AddPerdidaScreen extends StatefulWidget {
   const AddPerdidaScreen({
@@ -159,7 +160,9 @@ class _AddPerdidaScreenState extends State<AddPerdidaScreen> {
         ),
         title: Text('Añadir pérdida', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -294,6 +297,7 @@ class _AddPerdidaScreenState extends State<AddPerdidaScreen> {
             const SizedBox(height: 24),
           ],
         ),
+      ),
       ),
     );
   }

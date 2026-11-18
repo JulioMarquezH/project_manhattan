@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/ancho_maximo.dart';
 
 class DetalleVentaScreen extends StatelessWidget {
   const DetalleVentaScreen({
@@ -35,7 +36,9 @@ class DetalleVentaScreen extends StatelessWidget {
         ),
         title: Text('Detalle de venta', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -186,6 +189,7 @@ class DetalleVentaScreen extends StatelessWidget {
             ]),
           ],
         ),
+      ),
       ),
     );
   }

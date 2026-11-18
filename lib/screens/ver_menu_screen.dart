@@ -5,12 +5,13 @@ import '../core/api_exception.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import 'add_categoria_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 // Colores que se asignan a las categorías de forma cíclica
 const _kCatColors = [
   AppColors.naranjaAccion,
-  AppColors.azulControl,
-  Color(0xFF8B5CF6),
+  AppColors.azulTexto,
+  Color(0xFFA78BFA),
   AppColors.verdeExito,
   Color(0xFFEC4899),
   Color(0xFFF59E0B),
@@ -137,7 +138,9 @@ class _VerMenuScreenState extends State<VerMenuScreen> {
         ),
         title: Text('Menú', style: AppTypography.titleLarge),
       ),
-      body: _loading
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: _loading
           ? const Center(
               child: CircularProgressIndicator(
                   color: AppColors.naranjaAccion))
@@ -199,6 +202,7 @@ class _VerMenuScreenState extends State<VerMenuScreen> {
                 ],
               ),
             ),
+      ),
     );
   }
 }
@@ -455,7 +459,9 @@ class _VerMenuCategoriaScreenState extends State<_VerMenuCategoriaScreen> {
         title: Text(widget.categoria.nombre,
             style: AppTypography.titleLarge),
       ),
-      body: _productos.isEmpty
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoLista,
+        child: _productos.isEmpty
           ? _EmptyState(mensaje: 'Esta categoría no tiene productos.')
           : ListView.separated(
               padding:
@@ -471,6 +477,7 @@ class _VerMenuCategoriaScreenState extends State<_VerMenuCategoriaScreen> {
                     _deleting ? null : () => _confirmDelete(_productos[i]),
               ),
             ),
+      ),
     );
   }
 }

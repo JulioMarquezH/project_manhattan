@@ -6,6 +6,7 @@ import '../mock/mock_api.dart';
 import '../widgets/app_text_field.dart';
 import '../widgets/restaurant_header.dart';
 import 'add_rol_screen.dart';
+import '../widgets/ancho_maximo.dart';
 
 class EditEmpleadoScreen extends StatefulWidget {
   const EditEmpleadoScreen({
@@ -251,7 +252,9 @@ class _EditEmpleadoScreenState extends State<EditEmpleadoScreen> {
         ),
         title: Text('Editar empleado', style: AppTypography.titleLarge),
       ),
-      body: SingleChildScrollView(
+      body: AnchoMaximo(
+        max: AnchoMaximo.anchoFormulario,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -424,6 +427,7 @@ class _EditEmpleadoScreenState extends State<EditEmpleadoScreen> {
             const SizedBox(height: 24),
           ],
         ),
+      ),
       ),
     );
   }
