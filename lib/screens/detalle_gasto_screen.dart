@@ -55,7 +55,7 @@ class DetalleGastoScreen extends StatelessWidget {
                 const SizedBox(width: 8),
                 _Chip(
                   label: _dateFmt.format(gasto.fecha),
-                  color: AppColors.azulControl,
+                  color: AppColors.azulTexto,
                 ),
               ],
             ),
@@ -89,13 +89,13 @@ class DetalleGastoScreen extends StatelessWidget {
                 children: [
                   Expanded(
                       child: Divider(
-                          color: AppColors.azulControl.withValues(alpha: 0.3))),
+                          color: AppColors.borde)),
                   const SizedBox(width: 10),
                   Text('Productos', style: AppTypography.caption),
                   const SizedBox(width: 10),
                   Expanded(
                       child: Divider(
-                          color: AppColors.azulControl.withValues(alpha: 0.3))),
+                          color: AppColors.borde)),
                 ],
               ),
               const SizedBox(height: 8),
@@ -169,7 +169,7 @@ class _ProductoRow extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-              color: AppColors.azulControl.withValues(alpha: 0.2)),
+              color: AppColors.borde),
         ),
       ),
       child: Row(
@@ -224,7 +224,7 @@ class _StatBox extends StatelessWidget {
           color: const Color(0xFF1E293B),
           borderRadius: BorderRadius.circular(12),
           border:
-              Border.all(color: AppColors.azulControl.withValues(alpha: 0.3)),
+              Border.all(color: AppColors.borde),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

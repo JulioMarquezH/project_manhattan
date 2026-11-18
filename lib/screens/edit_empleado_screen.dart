@@ -136,7 +136,7 @@ class _EditEmpleadoScreenState extends State<EditEmpleadoScreen> {
                   Navigator.pop(ctx);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      backgroundColor: AppColors.verdeExito,
+                      backgroundColor: AppColors.verdeBoton,
                       content: Text('Contraseña actualizada',
                           style: AppTypography.bodyMedium.copyWith(
                               color: AppColors.textoOscuroAlto)),
@@ -147,7 +147,7 @@ class _EditEmpleadoScreenState extends State<EditEmpleadoScreen> {
                   Navigator.pop(ctx);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      backgroundColor: AppColors.rojoAlerta,
+                      backgroundColor: AppColors.rojoBoton,
                       content: Text('No se pudo cambiar: ${e.message}'),
                     ),
                   );
@@ -230,7 +230,7 @@ class _EditEmpleadoScreenState extends State<EditEmpleadoScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: AppColors.rojoAlerta,
+          backgroundColor: AppColors.rojoBoton,
           content: Text('No se pudo eliminar: ${e.message}'),
         ),
       );
@@ -283,8 +283,7 @@ class _EditEmpleadoScreenState extends State<EditEmpleadoScreen> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(
-                                color: AppColors.azulControl
-                                    .withValues(alpha: 0.4)),
+                                color: AppColors.bordeControl),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -313,13 +312,12 @@ class _EditEmpleadoScreenState extends State<EditEmpleadoScreen> {
                           color: const Color(0xFF1E293B),
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              color: AppColors.azulControl
-                                  .withValues(alpha: 0.25)),
+                              color: AppColors.borde),
                         ),
                         child: Text(
                           _rolActualNombre,
                           style: AppTypography.bodyMedium.copyWith(
-                              color: AppColors.azulControl),
+                              color: AppColors.azulTexto),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -368,7 +366,7 @@ class _EditEmpleadoScreenState extends State<EditEmpleadoScreen> {
             ElevatedButton(
               onPressed: _saving ? null : _guardar,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.naranjaAccion,
+                backgroundColor: AppColors.naranjaBoton,
                 disabledBackgroundColor:
                     AppColors.naranjaAccion.withValues(alpha: 0.4),
                 shape: RoundedRectangleBorder(
@@ -402,9 +400,9 @@ class _EditEmpleadoScreenState extends State<EditEmpleadoScreen> {
               OutlinedButton.icon(
                 onPressed: _cambiarPassword,
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: AppColors.azulControl,
+                  foregroundColor: AppColors.azulTexto,
                   side: BorderSide(
-                      color: AppColors.azulControl.withValues(alpha: 0.6)),
+                      color: AppColors.borde),
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 icon: const Icon(Icons.key_outlined, size: 18),

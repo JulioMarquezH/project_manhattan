@@ -215,7 +215,7 @@ class _PuntoVentaScreenState extends State<PuntoVentaScreen> {
             child: ElevatedButton.icon(
               onPressed: _lineas.isEmpty || _cobrando ? null : _cobrar,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.verdeExito,
+                backgroundColor: AppColors.verdeBoton,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               icon: _cobrando
@@ -244,7 +244,7 @@ class _Carrito extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.qr_code_2, size: 64, color: AppColors.textoClaroMedio.withValues(alpha: 0.3)),
+            Icon(Icons.qr_code_2, size: 64, color: AppColors.textoTenue),
             const SizedBox(height: 8),
             Text('Escanea un producto para empezar', style: AppTypography.bodyMedium),
           ],

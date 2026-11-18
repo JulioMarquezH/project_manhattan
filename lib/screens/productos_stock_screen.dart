@@ -133,7 +133,7 @@ class _ProductosStockScreenState extends State<ProductosStockScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: AppColors.naranjaAccion,
+        backgroundColor: AppColors.naranjaBoton,
         onPressed: _nuevo,
         icon: const Icon(Icons.add, color: AppColors.textoClaroAlto),
         label: Text('Producto', style: AppTypography.labelLarge.copyWith(color: AppColors.textoClaroAlto)),
@@ -355,7 +355,7 @@ class _FormProductoState extends State<_FormProducto> {
               height: 48,
               child: ElevatedButton(
                 onPressed: _guardando ? null : _guardar,
-                style: ElevatedButton.styleFrom(backgroundColor: AppColors.naranjaAccion),
+                style: ElevatedButton.styleFrom(backgroundColor: AppColors.naranjaBoton),
                 child: Text(
                   _guardando ? 'Guardando…' : 'Crear producto',
                   style: AppTypography.labelLarge.copyWith(color: AppColors.textoClaroAlto),
@@ -481,7 +481,7 @@ class _DetalleProductoState extends State<_DetalleProducto> {
                 height: 46,
                 child: ElevatedButton(
                   onPressed: _guardando ? null : _guardar,
-                  style: ElevatedButton.styleFrom(backgroundColor: AppColors.naranjaAccion),
+                  style: ElevatedButton.styleFrom(backgroundColor: AppColors.naranjaBoton),
                   child: Text(
                     'Guardar cambios',
                     style: AppTypography.labelLarge.copyWith(color: AppColors.textoClaroAlto),

@@ -72,7 +72,7 @@ class AddProductoScreen extends StatelessWidget {
                       icon:        Icons.inventory_2_outlined,
                       titulo:      'Producto\nunitario',
                       descripcion: 'Cerveza, agua,\nrefresco, postre...',
-                      color:       AppColors.azulControl,
+                      color:       AppColors.azulTexto,
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -116,7 +116,7 @@ class AddProductoScreen extends StatelessWidget {
               children: [
                 _NotaFila(
                   icon:  Icons.inventory_2_outlined,
-                  color: AppColors.azulControl,
+                  color: AppColors.azulTexto,
                   texto:
                       'Unitario: se vende tal cual, sin fabricación. Ej: una lata de cerveza, una botella de agua.',
                 ),
@@ -241,7 +241,7 @@ class _NotaCard extends StatelessWidget {
           color: const Color(0xFF1E293B),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-              color: AppColors.azulControl.withValues(alpha: 0.2)),
+              color: AppColors.borde),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

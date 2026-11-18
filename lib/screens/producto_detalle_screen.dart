@@ -74,7 +74,7 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('No se pudo eliminar: $e'),
-          backgroundColor: AppColors.rojoAlerta,
+          backgroundColor: AppColors.rojoBoton,
         ),
       );
     }
@@ -108,7 +108,7 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
                 color: const Color(0xFF1E293B),
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(
-                    color: AppColors.azulControl.withValues(alpha: 0.25)),
+                    color: AppColors.borde),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,8 +123,7 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
                           color: AppColors.azulControl.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                              color: AppColors.azulControl
-                                  .withValues(alpha: 0.2)),
+                              color: AppColors.borde),
                         ),
                         child: const Icon(Icons.image_outlined,
                             color: AppColors.textoClaroMedio, size: 26),
@@ -183,7 +182,7 @@ class _ProductoDetalleScreenState extends State<ProductoDetalleScreen> {
               child: ElevatedButton.icon(
                 onPressed: _deleting ? null : _confirmarEliminar,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.rojoAlerta,
+                  backgroundColor: AppColors.rojoBoton,
                   disabledBackgroundColor:
                       AppColors.rojoAlerta.withValues(alpha: 0.4),
                   shape: RoundedRectangleBorder(
@@ -273,7 +272,7 @@ class _IngredienteCard extends StatelessWidget {
         color: const Color(0xFF1E293B),
         borderRadius: BorderRadius.circular(12),
         border:
-            Border.all(color: AppColors.azulControl.withValues(alpha: 0.2)),
+            Border.all(color: AppColors.borde),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,7 +288,7 @@ class _IngredienteCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: (ing.obligatorio
                           ? AppColors.naranjaAccion
-                          : AppColors.azulControl)
+                          : AppColors.bordeControl)
                       .withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(20),
                 ),
@@ -299,7 +298,7 @@ class _IngredienteCard extends StatelessWidget {
                     fontSize: 10,
                     color: ing.obligatorio
                         ? AppColors.naranjaAccion
-                        : AppColors.azulControl,
+                        : AppColors.bordeControl,
                   ),
                 ),
               ),

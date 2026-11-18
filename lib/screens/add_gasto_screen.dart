@@ -119,7 +119,7 @@ class _AddGastoScreenState extends State<AddGastoScreen> {
           decoration: InputDecoration(
             hintText: 'Ej: Aseo, Mantenimiento…',
             hintStyle: AppTypography.bodyMedium.copyWith(
-                color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+                color: AppColors.textoTenue),
             filled: true,
             fillColor: const Color(0xFF0F172A),
             contentPadding:
@@ -146,7 +146,7 @@ class _AddGastoScreenState extends State<AddGastoScreen> {
           ElevatedButton(
             onPressed: () => Navigator.pop(ctx, ctrl.text.trim()),
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.naranjaAccion,
+              backgroundColor: AppColors.naranjaBoton,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               padding: const EdgeInsets.symmetric(
@@ -481,7 +481,7 @@ class _AddGastoScreenState extends State<AddGastoScreen> {
                   Expanded(
                       child: Divider(
                           color:
-                              AppColors.azulControl.withValues(alpha: 0.3))),
+                              AppColors.borde)),
                   const SizedBox(width: 10),
                   Row(
                     children: [
@@ -496,7 +496,7 @@ class _AddGastoScreenState extends State<AddGastoScreen> {
                   Expanded(
                       child: Divider(
                           color:
-                              AppColors.azulControl.withValues(alpha: 0.3))),
+                              AppColors.borde)),
                 ],
               ),
               const SizedBox(height: 4),
@@ -525,7 +525,7 @@ class _AddGastoScreenState extends State<AddGastoScreen> {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.textoClaroMedio,
                   side: BorderSide(
-                      color: AppColors.azulControl.withValues(alpha: 0.4)),
+                      color: AppColors.borde),
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 icon: const Icon(Icons.add, size: 16),
@@ -614,7 +614,7 @@ class _ProductoRowWidgetState extends State<_ProductoRowWidget> {
         color: const Color(0xFF1E293B),
         borderRadius: BorderRadius.circular(12),
         border:
-            Border.all(color: AppColors.azulControl.withValues(alpha: 0.3)),
+            Border.all(color: AppColors.borde),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -784,7 +784,7 @@ class _ChipCategoria extends StatelessWidget {
           border: Border.all(
             color: seleccionado
                 ? AppColors.naranjaAccion
-                : AppColors.azulControl.withValues(alpha: 0.3),
+                : AppColors.bordeControl,
             width: seleccionado ? 1.5 : 1,
           ),
         ),
@@ -840,7 +840,7 @@ class _TipoBtn extends StatelessWidget {
           border: Border.all(
             color: seleccionado
                 ? AppColors.naranjaAccion
-                : AppColors.azulControl.withValues(alpha: 0.3),
+                : AppColors.bordeControl,
             width: seleccionado ? 1.5 : 1,
           ),
         ),
@@ -902,7 +902,7 @@ Widget _buildRawField({
     decoration: InputDecoration(
       hintText: hint,
       hintStyle: AppTypography.bodyMedium
-          .copyWith(color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+          .copyWith(color: AppColors.textoTenue),
       filled: true,
       fillColor: enabled
           ? const Color(0xFF0F172A)

@@ -105,7 +105,7 @@ class _AddRolScreenState extends State<AddRolScreen> {
                 ),
                 hintText:  'Ej: Mesero, Cocinero, Cajero...',
                 hintStyle: AppTypography.caption.copyWith(
-                    color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+                    color: AppColors.textoTenue),
                 filled:    true,
                 fillColor: const Color(0xFF1E293B),
                 enabledBorder: OutlineInputBorder(
@@ -113,7 +113,7 @@ class _AddRolScreenState extends State<AddRolScreen> {
                   borderSide: BorderSide(
                     color: nombreVacio
                         ? AppColors.rojoAlerta
-                        : AppColors.azulControl.withValues(alpha: 0.4),
+                        : AppColors.bordeControl,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
@@ -156,7 +156,7 @@ class _AddRolScreenState extends State<AddRolScreen> {
               decoration: InputDecoration(
                 hintText: 'Buscar permiso...',
                 hintStyle: AppTypography.caption.copyWith(
-                    color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+                    color: AppColors.textoTenue),
                 prefixIcon: const Icon(Icons.search,
                     color: AppColors.textoClaroMedio, size: 20),
                 filled:    true,
@@ -166,7 +166,7 @@ class _AddRolScreenState extends State<AddRolScreen> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide(
-                      color: AppColors.azulControl.withValues(alpha: 0.4)),
+                      color: AppColors.bordeControl),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -211,7 +211,7 @@ class _AddRolScreenState extends State<AddRolScreen> {
             ElevatedButton(
               onPressed: _saving ? null : _guardar,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.naranjaAccion,
+                backgroundColor: AppColors.naranjaBoton,
                 disabledBackgroundColor:
                     AppColors.naranjaAccion.withValues(alpha: 0.4),
                 shape: RoundedRectangleBorder(
@@ -269,7 +269,7 @@ class _PermisoChip extends StatelessWidget {
           border: Border.all(
             color: selected
                 ? AppColors.naranjaAccion
-                : AppColors.azulControl.withValues(alpha: 0.4),
+                : AppColors.bordeControl,
             width: selected ? 1.5 : 1,
           ),
         ),

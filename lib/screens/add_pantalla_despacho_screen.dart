@@ -185,8 +185,7 @@ class _AddPantallaDespachoScreenState
                               border: Border.all(
                                 color: sel
                                     ? AppColors.naranjaAccion
-                                    : AppColors.azulControl
-                                        .withValues(alpha: 0.3),
+                                    : AppColors.bordeControl,
                                 width: sel ? 1.5 : 1,
                               ),
                             ),
@@ -300,7 +299,7 @@ class _AddPantallaDespachoScreenState
                   ElevatedButton(
                     onPressed: _saving ? null : _guardar,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.naranjaAccion,
+                      backgroundColor: AppColors.naranjaBoton,
                       disabledBackgroundColor:
                           AppColors.naranjaAccion.withValues(alpha: 0.4),
                       shape: RoundedRectangleBorder(
@@ -332,7 +331,7 @@ InputDecoration _inputDec({required String hint, bool error = false}) =>
     InputDecoration(
       hintText:  hint,
       hintStyle: AppTypography.caption.copyWith(
-          color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+          color: AppColors.textoTenue),
       filled:    true,
       fillColor: const Color(0xFF1E293B),
       contentPadding:
@@ -342,7 +341,7 @@ InputDecoration _inputDec({required String hint, bool error = false}) =>
         borderSide: BorderSide(
           color: error
               ? AppColors.rojoAlerta
-              : AppColors.azulControl.withValues(alpha: 0.4),
+              : AppColors.bordeControl,
         ),
       ),
       focusedBorder: OutlineInputBorder(

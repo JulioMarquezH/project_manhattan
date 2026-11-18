@@ -138,7 +138,7 @@ class _LogoPlaceholder extends StatelessWidget {
         color: AppColors.azulControl.withValues(alpha: 0.25),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColors.azulControl.withValues(alpha: 0.6),
+          color: AppColors.borde,
         ),
       ),
       alignment: Alignment.center,

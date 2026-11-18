@@ -108,8 +108,7 @@ class _AddCategoriaScreenState extends State<AddCategoriaScreen> {
                         decoration: InputDecoration(
                           hintText:  'Ej: Panadería, Bebidas...',
                           hintStyle: AppTypography.caption.copyWith(
-                              color: AppColors.textoClaroMedio
-                                  .withValues(alpha: 0.4)),
+                              color: AppColors.textoTenue),
                           filled:    true,
                           fillColor: const Color(0xFF1E293B),
                           contentPadding: const EdgeInsets.symmetric(
@@ -119,8 +118,7 @@ class _AddCategoriaScreenState extends State<AddCategoriaScreen> {
                             borderSide: BorderSide(
                               color: vacio
                                   ? AppColors.rojoAlerta
-                                  : AppColors.azulControl
-                                      .withValues(alpha: 0.4),
+                                  : AppColors.bordeControl,
                             ),
                           ),
                           focusedBorder: OutlineInputBorder(
@@ -158,7 +156,7 @@ class _AddCategoriaScreenState extends State<AddCategoriaScreen> {
               decoration: InputDecoration(
                 hintText:  'Describe esta categoría (opcional)...',
                 hintStyle: AppTypography.caption.copyWith(
-                    color: AppColors.textoClaroMedio.withValues(alpha: 0.4)),
+                    color: AppColors.textoTenue),
                 filled:    true,
                 fillColor: const Color(0xFF1E293B),
                 contentPadding: const EdgeInsets.symmetric(
@@ -166,7 +164,7 @@ class _AddCategoriaScreenState extends State<AddCategoriaScreen> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(
-                      color: AppColors.azulControl.withValues(alpha: 0.4)),
+                      color: AppColors.bordeControl),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -181,7 +179,7 @@ class _AddCategoriaScreenState extends State<AddCategoriaScreen> {
             ElevatedButton(
               onPressed: _saving ? null : _guardar,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.naranjaAccion,
+                backgroundColor: AppColors.naranjaBoton,
                 disabledBackgroundColor:
                     AppColors.naranjaAccion.withValues(alpha: 0.4),
                 shape: RoundedRectangleBorder(
@@ -237,7 +235,7 @@ class _FotoPickerState extends State<_FotoPicker> {
           border: Border.all(
             color: _seleccionado
                 ? AppColors.naranjaAccion.withValues(alpha: 0.6)
-                : AppColors.azulControl.withValues(alpha: 0.4),
+                : AppColors.bordeControl,
           ),
         ),
         child: Column(
@@ -249,7 +247,7 @@ class _FotoPickerState extends State<_FotoPicker> {
                   : Icons.camera_alt_outlined,
               color: _seleccionado
                   ? AppColors.naranjaAccion
-                  : AppColors.textoClaroMedio.withValues(alpha: 0.45),
+                  : AppColors.textoTenue,
               size: 26,
             ),
             const SizedBox(height: 5),
@@ -259,7 +257,7 @@ class _FotoPickerState extends State<_FotoPicker> {
                 fontSize: 10,
                 color: _seleccionado
                     ? AppColors.naranjaAccion
-                    : AppColors.textoClaroMedio.withValues(alpha: 0.45),
+                    : AppColors.textoTenue,
               ),
             ),
           ],

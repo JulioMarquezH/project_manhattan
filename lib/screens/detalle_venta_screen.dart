@@ -114,8 +114,7 @@ class DetalleVentaScreen extends StatelessWidget {
                     color: const Color(0xFF1E293B),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
-                        color: AppColors.azulControl
-                            .withValues(alpha: 0.2)),
+                        color: AppColors.borde),
                   ),
                   child: Row(children: [
                     Container(

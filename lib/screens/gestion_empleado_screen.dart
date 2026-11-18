@@ -109,7 +109,7 @@ class _GestionEmpleadoScreenState extends State<GestionEmpleadoScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.person_remove_outlined,
-                  color: AppColors.azulControl),
+                  color: AppColors.azulTexto),
               title: Text('Quitar del restaurante',
                   style: AppTypography.bodyMedium
                       .copyWith(color: AppColors.textoClaroAlto)),
@@ -280,7 +280,7 @@ class _GestionEmpleadoScreenState extends State<GestionEmpleadoScreen> {
                       color: const Color(0xFF1E293B),
                       borderRadius: BorderRadius.circular(14),
                       border: Border.all(
-                          color: AppColors.azulControl.withValues(alpha: 0.3)),
+                          color: AppColors.borde),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -311,7 +311,7 @@ class _GestionEmpleadoScreenState extends State<GestionEmpleadoScreen> {
                               ElevatedButton.icon(
                                 onPressed: _showAddRolSheet,
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.naranjaAccion,
+                                  backgroundColor: AppColors.naranjaBoton,
                                   foregroundColor: AppColors.textoClaroAlto,
                                   shape: const StadiumBorder(),
                                   padding: const EdgeInsets.symmetric(
@@ -442,7 +442,7 @@ class _EmpleadoCard extends StatelessWidget {
         color: const Color(0xFF1E293B),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-            color: AppColors.azulControl.withValues(alpha: 0.3)),
+            color: AppColors.borde),
       ),
       padding: const EdgeInsets.fromLTRB(12, 16, 12, 10),
       child: Column(
@@ -482,7 +482,7 @@ class _EmpleadoCard extends StatelessWidget {
                 child: Text(
                   _rolNombre,
                   style: AppTypography.caption
-                      .copyWith(color: AppColors.azulControl),
+                      .copyWith(color: AppColors.azulTexto),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -582,7 +582,7 @@ class _RolItem extends StatelessWidget {
             ? null
             : Border(
                 bottom: BorderSide(
-                    color: AppColors.azulControl.withValues(alpha: 0.2))),
+                    color: AppColors.borde)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -611,7 +611,7 @@ class _RolItem extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                               color:
-                                  AppColors.azulControl.withValues(alpha: 0.3)),
+                                  AppColors.borde),
                         ),
                         child: Text(label,
                             style: AppTypography.caption
@@ -668,7 +668,7 @@ class _SheetTextField extends StatelessWidget {
             color: error ? AppColors.rojoAlerta : AppColors.textoClaroMedio,
           ),
           hintStyle: AppTypography.caption.copyWith(
-            color: AppColors.textoClaroMedio.withValues(alpha: 0.4),
+            color: AppColors.textoTenue,
           ),
           filled:    true,
           fillColor: const Color(0xFF0F172A),
@@ -677,7 +677,7 @@ class _SheetTextField extends StatelessWidget {
             borderSide: BorderSide(
               color: error
                   ? AppColors.rojoAlerta
-                  : AppColors.azulControl.withValues(alpha: 0.4),
+                  : AppColors.bordeControl,
             ),
           ),
           focusedBorder: OutlineInputBorder(
@@ -710,7 +710,7 @@ class _SheetDropdown<T> extends StatelessWidget {
           color: const Color(0xFF0F172A),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-              color: AppColors.azulControl.withValues(alpha: 0.4)),
+              color: AppColors.borde),
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<T>(

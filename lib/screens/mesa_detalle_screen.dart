@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../core/app_design_system.dart';
 import '../mock/mock_api.dart';
 import '../widgets/restaurant_header.dart';
+import '../widgets/selector_productos.dart';
 import 'cobrar_mesa_screen.dart';
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -187,24 +188,18 @@ class _MesaDetalleScreenState extends State<MesaDetalleScreen> {
 
   double get _total => _orden.fold(0.0, (s, o) => s + o.subtotal);
 
-  // ── Bottom sheet categoría ─────────────────────────────────────────────────
-
-  void _mostrarCategoria(Categoria cat) {
-    final prods =
-        _productos.where((p) => p.categoriaId == cat.id).toList();
+  void _agregar(Producto p) {
+    if (!p.esCompuesto) {
+      _cambiarCantidadPorId(p.id, 1);
+      return;
+    }
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (_) => ProductosSheet(
-        categoria:         cat,
-        productos:         prods,
-        cantidadFn:        _cantidadEnOrden,
-        onCambiarCantidad: _cambiarCantidadPorId,
-        onAgregarCompuesto: (p, config) {
-          _agregarCompuesto(p, config);
-          setState(() {});
-        },
+      builder: (_) => CompositeSelectionSheet(
+        producto: p,
+        onConfirmar: (config) => _agregarCompuesto(p, config),
       ),
     );
   }
@@ -220,7 +215,7 @@ class _MesaDetalleScreenState extends State<MesaDetalleScreen> {
         SnackBar(
           content: const Text(
               'La caja está cerrada. Ábrela en Cartera para poder cobrar.'),
-          backgroundColor: AppColors.rojoAlerta,
+          backgroundColor: AppColors.rojoBoton,
           duration: const Duration(seconds: 3),
         ),
       );
@@ -295,7 +290,7 @@ class _MesaDetalleScreenState extends State<MesaDetalleScreen> {
             icon: Icon(
               Icons.point_of_sale,
               color: _orden.isEmpty
-                  ? AppColors.textoClaroMedio.withValues(alpha: 0.4)
+                  ? AppColors.textoTenue
                   : AppColors.verdeExito,
             ),
           ),
@@ -303,682 +298,161 @@ class _MesaDetalleScreenState extends State<MesaDetalleScreen> {
         ],
       ),
       body: _loading
-          ? const Center(
-              child: CircularProgressIndicator(
-                  color: AppColors.naranjaAccion))
-          : SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  RestaurantHeader(
-                      restaurant: widget.restaurant, user: widget.user),
-                  if (widget.mesa.nombre.isNotEmpty) ...[
-                    const SizedBox(height: 8),
-                    Row(children: [
-                      const Icon(Icons.person_outline,
-                          size: 14, color: AppColors.textoClaroMedio),
-                      const SizedBox(width: 4),
-                      Text(widget.mesa.nombre,
-                          style: AppTypography.caption.copyWith(
-                              color: AppColors.textoClaroMedio)),
-                    ]),
-                  ],
-                  const SizedBox(height: 24),
-
-                  Text('Categorías del menú',
-                      style: AppTypography.titleMedium),
-                  const SizedBox(height: 12),
-
-                  if (_categorias.isEmpty)
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(24),
-                        child: Text('Sin categorías disponibles',
-                            style: AppTypography.caption.copyWith(
-                                color: AppColors.textoClaroMedio)),
+          ? const Center(child: CircularProgressIndicator())
+          : LayoutBuilder(builder: (context, c) {
+              if (c.maxWidth >= 900) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+                        child: _izquierda(autofocus: true),
                       ),
-                    )
-                  else
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount:   2,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing:  12,
-                        childAspectRatio: 2.4,
-                      ),
-                      itemCount: _categorias.length,
-                      itemBuilder: (_, i) {
-                        final cat   = _categorias[i];
-                        final color =
-                            _kCatColors[i % _kCatColors.length];
-                        final count = _productos
-                            .where((p) => p.categoriaId == cat.id)
-                            .length;
-                        return _CatChip(
-                          cat:   cat,
-                          color: color,
-                          count: count,
-                          onTap: count == 0
-                              ? null
-                              : () => _mostrarCategoria(cat),
-                        );
-                      },
                     ),
-
-                  // ── Orden ───────────────────────────────────────────────
-                  if (_orden.isNotEmpty) ...[
-                    const SizedBox(height: 28),
-                    Row(children: [
-                      Text('Orden actual',
-                          style: AppTypography.titleMedium),
-                      const Spacer(),
-                      Text(
-                        '${_orden.length} ítem${_orden.length == 1 ? '' : 's'}',
-                        style: AppTypography.caption.copyWith(
-                            color: AppColors.textoClaroMedio),
+                    Container(
+                      width: c.maxWidth >= 1300 ? 420 : 360,
+                      decoration: const BoxDecoration(
+                        color: AppColors.superficie,
+                        border: Border(left: BorderSide(color: AppColors.borde)),
                       ),
-                    ]),
-                    const SizedBox(height: 10),
-                    ...List.generate(_orden.length, (i) {
-                      final item = _orden[i];
-                      return _OrdenItemRow(
-                        item:    item,
-                        onMinus: () => _cambiarCantidadPorIndex(i, -1),
-                        onPlus:  () => _cambiarCantidadPorIndex(i,  1),
-                        fmt:     _fmt,
-                      );
-                    }),
-                    const SizedBox(height: 12),
-                    const Divider(color: Color(0xFF334155)),
-                    const SizedBox(height: 10),
-                    Row(children: [
-                      Text('Total',
-                          style: AppTypography.titleMedium
-                              .copyWith(fontWeight: FontWeight.w700)),
-                      const Spacer(),
-                      Text(
-                        _fmt.format(_total),
-                        style: AppTypography.titleLarge.copyWith(
-                            color: AppColors.naranjaAccion,
-                            fontWeight: FontWeight.w700),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                            child: _tituloPedido(),
+                          ),
+                          Expanded(
+                            child: _orden.isEmpty
+                                ? Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(24),
+                                      child: Text(
+                                        'Busca o toca un producto para agregarlo al pedido',
+                                        textAlign: TextAlign.center,
+                                        style: AppTypography.bodyMedium,
+                                      ),
+                                    ),
+                                  )
+                                : ListView(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                                    children: _lineas(),
+                                  ),
+                          ),
+                          _barraTotal(),
+                        ],
                       ),
-                    ]),
+                    ),
                   ],
-                ],
-              ),
-            ),
-    );
-  }
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Colores de categoría (cíclicos, también usados en AddMesaScreen)
-// ──────────────────────────────────────────────────────────────────────────────
-
-const _kCatColors = [
-  AppColors.naranjaAccion,
-  AppColors.azulControl,
-  Color(0xFF8B5CF6),
-  AppColors.verdeExito,
-  Color(0xFFEC4899),
-  Color(0xFFF59E0B),
-];
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Chip de categoría
-// ──────────────────────────────────────────────────────────────────────────────
-
-class _CatChip extends StatelessWidget {
-  const _CatChip({
-    required this.cat,
-    required this.color,
-    required this.count,
-    required this.onTap,
-  });
-
-  final Categoria     cat;
-  final Color         color;
-  final int           count;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final disabled = count == 0;
-    return Material(
-      color: const Color(0xFF1E293B),
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        splashColor: color.withValues(alpha: 0.12),
-        child: Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: disabled
-                  ? AppColors.azulControl.withValues(alpha: 0.15)
-                  : color.withValues(alpha: 0.4),
-            ),
-          ),
-          child: Row(children: [
-            Container(
-              width: 32, height: 32,
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: disabled ? 0.06 : 0.15),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Icon(Icons.category_outlined,
-                  color: disabled
-                      ? AppColors.textoClaroMedio.withValues(alpha: 0.3)
-                      : color,
-                  size: 16),
-            ),
-            const SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(cat.nombre,
-                      style: AppTypography.labelLarge.copyWith(
-                        color: disabled
-                            ? AppColors.textoClaroMedio
-                                .withValues(alpha: 0.4)
-                            : AppColors.textoClaroAlto,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis),
-                  Text('$count producto${count == 1 ? '' : 's'}',
-                      style: AppTypography.caption.copyWith(
-                        color: disabled
-                            ? AppColors.textoClaroMedio
-                                .withValues(alpha: 0.3)
-                            : AppColors.textoClaroMedio,
-                        fontSize: 10,
-                      )),
-                ],
-              ),
-            ),
-          ]),
-        ),
-      ),
-    );
-  }
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Fila de ítem en la orden
-// ──────────────────────────────────────────────────────────────────────────────
-
-class _OrdenItemRow extends StatelessWidget {
-  const _OrdenItemRow({
-    required this.item,
-    required this.onMinus,
-    required this.onPlus,
-    required this.fmt,
-  });
-
-  final OrdenItem    item;
-  final VoidCallback onMinus;
-  final VoidCallback onPlus;
-  final NumberFormat fmt;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding:
-          const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-            color: AppColors.azulControl.withValues(alpha: 0.2)),
-      ),
-      child: Row(children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(item.producto.nombre,
-                  style: AppTypography.labelLarge,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis),
-              if (item.configText.isNotEmpty)
-                Text(item.configText,
-                    style: AppTypography.caption.copyWith(
-                        color: const Color(0xFF93C5FD),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        height: 1.3),
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis)
-              else
-                Text(fmt.format(item.producto.precio),
-                    style: AppTypography.caption
-                        .copyWith(color: AppColors.textoClaroMedio)),
-            ],
-          ),
-        ),
-        _QtyBtn(icon: Icons.remove, onTap: onMinus),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Text('${item.cantidad}',
-              style: AppTypography.titleMedium
-                  .copyWith(fontWeight: FontWeight.w700)),
-        ),
-        _QtyBtn(icon: Icons.add, onTap: onPlus),
-        const SizedBox(width: 12),
-        Text(fmt.format(item.subtotal),
-            style: AppTypography.labelLarge.copyWith(
-                color: AppColors.naranjaAccion,
-                fontWeight: FontWeight.w700)),
-      ]),
-    );
-  }
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Botón de cantidad (+/−) — privado, usado en OrdenItemRow y ProductosSheet
-// ──────────────────────────────────────────────────────────────────────────────
-
-class _QtyBtn extends StatelessWidget {
-  const _QtyBtn({required this.icon, required this.onTap});
-
-  final IconData     icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) => GestureDetector(
-        onTap: onTap,
-        child: Container(
-          width: 28, height: 28,
-          decoration: BoxDecoration(
-            color: AppColors.azulControl.withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(6),
-            border: Border.all(
-                color: AppColors.azulControl.withValues(alpha: 0.35)),
-          ),
-          child: Icon(icon, size: 14,
-              color: AppColors.textoClaroAlto),
-        ),
-      );
-}
-
-// ──────────────────────────────────────────────────────────────────────────────
-// Bottom sheet — lista de productos de una categoría (PÚBLICO)
-// ──────────────────────────────────────────────────────────────────────────────
-
-class ProductosSheet extends StatefulWidget {
-  const ProductosSheet({
-    super.key,
-    required this.categoria,
-    required this.productos,
-    required this.cantidadFn,
-    required this.onCambiarCantidad,
-    required this.onAgregarCompuesto,
-  });
-
-  final Categoria          categoria;
-  final List<Producto>     productos;
-  final int  Function(String productoId)            cantidadFn;
-  final void Function(String productoId, int delta) onCambiarCantidad;
-  final void Function(Producto, List<IngredienteSeleccion>) onAgregarCompuesto;
-
-  @override
-  State<ProductosSheet> createState() => _ProductosSheetState();
-}
-
-class _ProductosSheetState extends State<ProductosSheet> {
-  static final _fmt = NumberFormat.currency(
-      locale: 'es_CO', symbol: '\$', decimalDigits: 0);
-
-  // Cantidades locales para productos simples (reacción visual inmediata)
-  late final Map<String, int> _qty;
-
-  @override
-  void initState() {
-    super.initState();
-    _qty = {
-      for (final p in widget.productos)
-        if (!p.esCompuesto) p.id: widget.cantidadFn(p.id),
-    };
-  }
-
-  void _tapSimple(Producto p, int delta) {
-    final next = ((_qty[p.id] ?? 0) + delta).clamp(0, 99);
-    if (next == (_qty[p.id] ?? 0)) return;
-    setState(() => _qty[p.id] = next);
-    widget.onCambiarCantidad(p.id, delta);
-  }
-
-  void _tapCompuesto(BuildContext ctx, Producto p) {
-    showModalBottomSheet(
-      context: ctx,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (_) => CompositeSelectionSheet(
-        producto: p,
-        onConfirmar: (config) {
-          widget.onAgregarCompuesto(p, config);
-          // Actualizar badge de cantidad en la sheet
-          setState(() {});
-        },
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      initialChildSize: 0.55,
-      minChildSize:     0.35,
-      maxChildSize:     0.9,
-      builder: (ctx, ctrl) => Container(
-        decoration: const BoxDecoration(
-          color: Color(0xFF1E293B),
-          borderRadius:
-              BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: Column(children: [
-          const SizedBox(height: 10),
-          Container(
-            width: 36, height: 4,
-            decoration: BoxDecoration(
-              color:
-                  AppColors.textoClaroMedio.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(children: [
-              Text(widget.categoria.nombre,
-                  style: AppTypography.titleLarge),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 3),
-                decoration: BoxDecoration(
-                  color:
-                      AppColors.azulControl.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(
-                  '${widget.productos.length} producto'
-                  '${widget.productos.length == 1 ? '' : 's'}',
-                  style: AppTypography.caption
-                      .copyWith(color: AppColors.azulControl),
-                ),
-              ),
-            ]),
-          ),
-          const SizedBox(height: 12),
-          const Divider(height: 1, color: Color(0xFF334155)),
-          Expanded(
-            child: widget.productos.isEmpty
-                ? Center(
-                    child: Text('Sin productos en esta categoría',
-                        style: AppTypography.caption.copyWith(
-                            color: AppColors.textoClaroMedio)),
-                  )
-                : ListView.separated(
-                    controller: ctrl,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                    itemCount: widget.productos.length,
-                    separatorBuilder: (_, i) =>
-                        const SizedBox(height: 8),
-                    itemBuilder: (_, i) {
-                      final p = widget.productos[i];
-                      if (p.esCompuesto) {
-                        return _CompuestoProdRow(
-                          producto:    p,
-                          enOrden:     widget.cantidadFn(p.id),
-                          fmt:         _fmt,
-                          onAnadir:    () => _tapCompuesto(ctx, p),
-                        );
-                      }
-                      final qty = _qty[p.id] ?? 0;
-                      return _SimpleProdRow(
-                        producto: p,
-                        qty:      qty,
-                        fmt:      _fmt,
-                        onMinus:  () => _tapSimple(p, -1),
-                        onPlus:   () => _tapSimple(p,  1),
-                      );
-                    },
+                );
+              }
+              return Column(children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _izquierda(autofocus: false),
+                        if (_orden.isNotEmpty) ...[
+                          const SizedBox(height: 20),
+                          _tituloPedido(),
+                          const SizedBox(height: 8),
+                          ..._lineas(),
+                        ],
+                      ],
+                    ),
                   ),
+                ),
+                if (_orden.isNotEmpty) _barraTotal(),
+              ]);
+            }),
+    );
+  }
+
+  Widget _izquierda({required bool autofocus}) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          RestaurantHeader(restaurant: widget.restaurant, user: widget.user),
+          if (widget.mesa.nombre.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Row(children: [
+              const Icon(Icons.person_outline, size: 16, color: AppColors.textoClaroMedio),
+              const SizedBox(width: 4),
+              Text(widget.mesa.nombre, style: AppTypography.bodyMedium),
+            ]),
+          ],
+          const SizedBox(height: 16),
+          Text('Agregar al pedido', style: AppTypography.titleMedium),
+          const SizedBox(height: 10),
+          if (_productos.isEmpty)
+            Text('No hay productos en el menú', style: AppTypography.bodyMedium)
+          else
+            SelectorProductos(
+              categorias: _categorias,
+              productos: _productos,
+              cantidadFn: _cantidadEnOrden,
+              onAgregar: _agregar,
+              onQuitar: (p) => _cambiarCantidadPorId(p.id, -1),
+              autofocus: autofocus,
+            ),
+        ],
+      );
+
+  Widget _tituloPedido() => Row(children: [
+        Text('Pedido', style: AppTypography.titleMedium),
+        const Spacer(),
+        if (_orden.isNotEmpty)
+          Text(
+            '${_orden.fold<int>(0, (s, o) => s + o.cantidad)} und',
+            style: AppTypography.caption.copyWith(color: AppColors.textoTenue),
+          ),
+      ]);
+
+  List<Widget> _lineas() => [
+        for (var i = 0; i < _orden.length; i++)
+          LineaPedidoTile(
+            nombre: _orden[i].producto.nombre,
+            detalle: _orden[i].configText.isNotEmpty
+                ? _orden[i].configText
+                : _fmt.format(_orden[i].producto.precio),
+            detalleResaltado: _orden[i].configText.isNotEmpty,
+            cantidad: _orden[i].cantidad,
+            subtotal: _orden[i].subtotal,
+            onMenos: () => _cambiarCantidadPorIndex(i, -1),
+            onMas: () => _cambiarCantidadPorIndex(i, 1),
+          ),
+      ];
+
+  Widget _barraTotal() => Container(
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+        decoration: const BoxDecoration(
+          border: Border(top: BorderSide(color: AppColors.borde)),
+        ),
+        child: Row(children: [
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Total', style: AppTypography.caption),
+                Text(
+                  _fmt.format(_total),
+                  style: AppTypography.titleLarge.copyWith(
+                      color: AppColors.naranjaAccion, fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+          ),
+          ElevatedButton.icon(
+            onPressed: _orden.isEmpty ? null : _irACobrar,
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.verdeBoton),
+            icon: const Icon(Icons.point_of_sale, size: 20),
+            label: const Text('Cobrar'),
           ),
         ]),
-      ),
-    );
-  }
-}
-
-// ── Fila de producto simple ───────────────────────────────────────────────────
-
-class _SimpleProdRow extends StatelessWidget {
-  const _SimpleProdRow({
-    required this.producto,
-    required this.qty,
-    required this.fmt,
-    required this.onMinus,
-    required this.onPlus,
-  });
-
-  final Producto     producto;
-  final int          qty;
-  final NumberFormat fmt;
-  final VoidCallback onMinus;
-  final VoidCallback onPlus;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 180),
-      padding:
-          const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      decoration: BoxDecoration(
-        color: AppColors.fondoOscuro,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: qty > 0
-              ? AppColors.naranjaAccion.withValues(alpha: 0.45)
-              : AppColors.azulControl.withValues(alpha: 0.2),
-        ),
-      ),
-      child: Row(children: [
-        Container(
-          width: 40, height: 40,
-          decoration: BoxDecoration(
-            color: AppColors.naranjaAccion.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Icon(Icons.fastfood_outlined,
-              color: AppColors.naranjaAccion, size: 18),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(producto.nombre,
-                  style: AppTypography.labelLarge,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis),
-              Text(fmt.format(producto.precio),
-                  style: AppTypography.caption.copyWith(
-                      color: AppColors.naranjaAccion,
-                      fontWeight: FontWeight.w600)),
-            ],
-          ),
-        ),
-        const SizedBox(width: 8),
-        if (qty == 0)
-          GestureDetector(
-            onTap: onPlus,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 14, vertical: 7),
-              decoration: BoxDecoration(
-                color: AppColors.naranjaAccion.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                    color: AppColors.naranjaAccion
-                        .withValues(alpha: 0.5)),
-              ),
-              child: Text('Añadir',
-                  style: AppTypography.caption.copyWith(
-                      color: AppColors.naranjaAccion,
-                      fontWeight: FontWeight.w600)),
-            ),
-          )
-        else
-          Row(children: [
-            _QtyBtn(icon: Icons.remove, onTap: onMinus),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('$qty',
-                  style: AppTypography.titleMedium
-                      .copyWith(fontWeight: FontWeight.w700)),
-            ),
-            _QtyBtn(icon: Icons.add, onTap: onPlus),
-          ]),
-      ]),
-    );
-  }
-}
-
-// ── Fila de producto compuesto ────────────────────────────────────────────────
-
-class _CompuestoProdRow extends StatelessWidget {
-  const _CompuestoProdRow({
-    required this.producto,
-    required this.enOrden,
-    required this.fmt,
-    required this.onAnadir,
-  });
-
-  final Producto     producto;
-  final int          enOrden;
-  final NumberFormat fmt;
-  final VoidCallback onAnadir;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-      decoration: BoxDecoration(
-        color: AppColors.fondoOscuro,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: enOrden > 0
-              ? AppColors.naranjaAccion.withValues(alpha: 0.45)
-              : AppColors.azulControl.withValues(alpha: 0.2),
-        ),
-      ),
-      child: Row(children: [
-        // Ícono con badge de variantes
-        Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Container(
-              width: 40, height: 40,
-              decoration: BoxDecoration(
-                color: const Color(0xFF8B5CF6).withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Icon(Icons.tune,
-                  color: Color(0xFF8B5CF6), size: 18),
-            ),
-            Positioned(
-              top: -4, right: -4,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 4, vertical: 1),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF8B5CF6),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text('VAR',
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 7,
-                        fontWeight: FontWeight.w800)),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(producto.nombre,
-                  style: AppTypography.labelLarge,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis),
-              Text(fmt.format(producto.precio),
-                  style: AppTypography.caption.copyWith(
-                      color: AppColors.naranjaAccion,
-                      fontWeight: FontWeight.w600)),
-            ],
-          ),
-        ),
-        const SizedBox(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            if (enOrden > 0)
-              Container(
-                margin: const EdgeInsets.only(bottom: 4),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: AppColors.naranjaAccion
-                      .withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text('En orden: $enOrden',
-                    style: AppTypography.caption.copyWith(
-                        color: AppColors.naranjaAccion,
-                        fontSize: 9,
-                        fontWeight: FontWeight.w600)),
-              ),
-            GestureDetector(
-              onTap: onAnadir,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12, vertical: 7),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF8B5CF6)
-                      .withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                      color: const Color(0xFF8B5CF6)
-                          .withValues(alpha: 0.5)),
-                ),
-                child: Text('Elegir',
-                    style: AppTypography.caption.copyWith(
-                        color: const Color(0xFF8B5CF6),
-                        fontWeight: FontWeight.w600)),
-              ),
-            ),
-          ],
-        ),
-      ]),
-    );
-  }
+      );
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
@@ -1053,7 +527,7 @@ class _CompositeSelectionSheetState
             width: 36, height: 4,
             decoration: BoxDecoration(
               color:
-                  AppColors.textoClaroMedio.withValues(alpha: 0.3),
+                  AppColors.textoTenue,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -1108,7 +582,7 @@ class _CompositeSelectionSheetState
             child: ElevatedButton(
               onPressed: _listo ? _confirmar : null,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.naranjaAccion,
+                backgroundColor: AppColors.naranjaBoton,
                 disabledBackgroundColor:
                     AppColors.naranjaAccion.withValues(alpha: 0.3),
                 shape: RoundedRectangleBorder(
@@ -1238,8 +712,7 @@ class _IngredienteSection extends StatelessWidget {
                         color: selected
                             ? AppColors.naranjaAccion
                                 .withValues(alpha: 0.6)
-                            : AppColors.azulControl
-                                .withValues(alpha: 0.2),
+                            : AppColors.bordeControl,
                         width: selected ? 1.5 : 1,
                       ),
                     ),
@@ -1252,8 +725,7 @@ class _IngredienteSection extends StatelessWidget {
                           border: Border.all(
                             color: selected
                                 ? AppColors.naranjaAccion
-                                : AppColors.azulControl
-                                    .withValues(alpha: 0.4),
+                                : AppColors.bordeControl,
                             width: 2,
                           ),
                           color: selected

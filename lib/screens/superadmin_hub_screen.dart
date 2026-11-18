@@ -114,7 +114,7 @@ class SuperadminHubScreen extends StatelessWidget {
               icon: Icons.manage_accounts_outlined,
               label: 'Administrador de dueños',
               description: 'Clientes, altas y contraseñas',
-              color: AppColors.azulControl,
+              color: AppColors.azulTexto,
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const DuenosScreen()),
@@ -182,7 +182,7 @@ class _HubCard extends StatelessWidget {
                   ),
                 ),
                 Icon(Icons.chevron_right,
-                    color: AppColors.textoClaroMedio.withValues(alpha: 0.5)),
+                    color: AppColors.textoTenue),
               ],
             ),
           ),
